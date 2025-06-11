@@ -1,0 +1,280 @@
+
+:root {
+    --font: Arial, Helvetica, sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.inserir_nota {
+    position: absolute;
+    width: 65vw;
+    height: 80vh;
+    background-color: #fff;
+    margin: auto;
+    top: 1%;
+    bottom: 1%;
+    left: 1%;
+    right: 80px;
+    z-index: 100;
+    border-radius: 30px;
+    display: none;
+    transition-duration: 0.6s;
+    box-shadow: 1px 1px 10px 0px rgb(163, 132, 159);
+}
+
+#inserir_nota_moldura {
+    padding: 0px 30px 30px 30px;
+}
+
+.nota_close_button {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.295);
+    font-size: 40px;
+    text-align: right;
+}
+
+.nota{
+    color: rgba(0, 0, 0, 0.329);
+    font-weight: bold;
+    width: 50px;
+    cursor: pointer;
+    text-align: right;
+}
+
+#title{
+    width: 100%;
+    font-weight: bold;
+    color: black;
+    opacity: 100%;
+    border: 0;
+    font-size: 50px;
+}
+
+#paragrafo{
+    width: 100%;
+    height: 250px;
+    border: 10;
+}
+
+
+#corpo {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 149, 149);
+
+}
+
+
+#main {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 900px;
+    height: 500px;
+    background-color: rgb(253, 221, 252);
+    
+    margin: auto;
+    border: 200px;
+    border-radius: 20px;
+    padding: 30px;
+    overflow-y: auto;
+    overflow-x: hidden; 
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0px 20px 20px 0px;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    height: 5px;
+    
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(219, 175, 219);
+    width: 10px;
+    height: 5px;
+    border-radius: 20px 20px 20px 20px;
+    border: 2px solid  rgba(185, 134, 184, 0.788);
+    
+}
+
+#add_button {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+    bottom: 60px;
+    right: 300px;
+    border-radius: 100px;
+    cursor: pointer;
+    border-color: #dde3ee;
+    transition-duration: 0.6s;
+
+}
+
+#add_button i{
+    color: #7b828f;
+}
+
+.box {
+    background-color: rgb(109, 124, 187);
+    width: 200px;
+    height: 240px;
+    margin-inline: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    font-family: var(--font);
+    box-shadow: 1px 1px 10px 0px rgb(163, 132, 159);
+
+}
+
+#titulo {
+    background-color: aliceblue;
+    height: 8vh;
+    margin-top: -15px;
+    border-radius: 15px 15px 0px 0px;
+}
+
+#titulo h1{
+    padding: 10px 10px 10px 10px;
+    font-size: 20px;
+}
+
+#conteudo {
+    position: relative;
+    height: 28vh;
+    margin-top: -16PX;
+}
+
+#conteudo p {
+    padding: 10px 10px 10px 10px;
+    font-size: 15px;
+}
+
+#botoes {
+    position: absolute;
+    bottom: 0px;
+    right: 3px;
+    width: 60px;
+
+}
+
+.box:hover #editar_nota {
+    visibility: visible;
+}
+
+.box:hover #excluir_nota {
+    visibility: visible;
+}
+
+#editar_nota {
+    color: #fff;
+    background-color: rgba(240, 255, 255, 0.096);
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    visibility: hidden;
+    border-radius: 5px;
+    padding: auto;
+
+}
+
+#excluir_nota {
+    color: #fff;
+    background-color: rgba(240, 255, 255, 0.096);
+    width: 25px;
+    height: 25px;
+    border: none;
+    margin: auto;
+    cursor: pointer;
+    visibility: hidden;
+    border-radius: 5px;
+    padding: auto;
+    
+}
+
+.navbar {
+    width: 0px;
+    background-color: #719eff;
+    font-size: 10px;
+    text-align: right;
+    z-index: 9;
+    right: 0;
+    top: 0;
+    overflow-x: hidden;
+    transition: all 0.5s;
+    padding: 0px;
+}
+
+#open_button {
+    
+}
+
+.nav_open_button {
+    width:40px;
+    height:40px;
+    background-color: rgba(250, 235, 215, 0.267);
+    border-radius: 10px;
+    border: 0;
+    margin-top: 30px;
+    margin-right: 15px;
+    cursor: pointer;
+    justify-self: end;
+    
+}
+
+.nav_open_button i {
+    color: #fff;
+}
+
+.list {
+    list-style: none;
+    letter-spacing: 1px;
+    margin-top: 30px;
+}
+
+.list li {
+    margin-top: 25px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    margin-top: 20px;
+    
+}
+
+p {
+    font-family: var(--font);
+}
+
+#top_navbar {
+    position: ;
+}
+
+
+#nav_close_button{
+    margin-top: 30px;
+    cursor: pointer;
+    justify-self: end;
+}
+
+.menu:active {
+    background-color: blue;
+}
+
+#bottom_navbar {
+    font-family: var(--font);
+    bottom: 30px;
+    right: 30px;
+    position: ;
+}
