@@ -58,21 +58,6 @@ function Salvar(){
     document.getElementById("paragrafo").value = "";
 }
 
-/*
-function salvar(){
-inserir_nota = display = "none"
-create div = 'notas'
-notas = '
-    <div class="titulo"><h1>Título</h1></div>
-    <div class="conteudo"><p>Comece a escrever...</p></div>
-'
-
-adicionar input title a class titulo
-adicionar input paragrafo a class conteudo
-
-}
-*/
-
 function editarNota() {
     document.getElementById("editar_conteudo").style.display = "block";
 
@@ -83,13 +68,6 @@ function editarNota() {
 
     alert(conteudo)
     document.getElementById("paragrafo").value = conteudo;
-    /*
-
-    */
+    
 }
 
-
-
-/*$("#editar_nota").click(){
-    
-}*/

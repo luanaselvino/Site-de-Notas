@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            display: flex;
+            margin: 0;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+           
+        }
+
+        form{
+            background-color: rgba(0, 0, 0, 0.144);
+            width: 400px;
+            height: 300px;
+            border-radius: 15px;
+
+            display: flex;
+            flex-direction: column; /* coloca os elementos em coluna */
+            justify-content: center; /* centraliza verticalmente */
+            align-items: center;  /* centraliza horizontalmente */
+        }
+
+        input{
+            display: block;
+            margin: 10px auto;
+            width: 250px;
+            height: 30px;
+            border-radius: 5px;
+            padding: 0 10px;
+        }
+
+        #enviar{
+            width: 100px;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <form>
+
+        <h3>Login</h3>
+        <input type="text" placeholder="Login" id="login">
+        <input type="password" placeholder="Senha" id="senha">
+        <input type="submit" id="enviar" onclick="logar(); return false">
+
+    </form>
+
+    <script>
+        
+        function logar(){
+
+            var login = document.getElementById('login').value;
+            var senha = document.getElementById('senha').value;
+
+            if(login == "admin" && senha == "123"){
+                alert('Sucesso');
+                window.location.href = './index.html';
+            }else{
+                alert('Usuário ou senha incorretos')
+            }
+        }
+
+    </script>
+
+</body>
+</html>

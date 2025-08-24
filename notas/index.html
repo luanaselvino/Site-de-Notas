@@ -10,6 +10,7 @@
 <body>
 
     <div class="inserir_nota" id="inserir_nota">
+        
         <div id="inserir_nota_moldura">
 
             <a href="javascript:void(0)" class="nota_close_button" onclick="closeNota()"><p>&times;</p></a>
@@ -21,7 +22,9 @@
             <a href="javascript:void(0)" class="nota" onclick="Nota()">
                 <p id="salvar" onclick="Salvar()">Salvar</p>
             </a>
+
         </div>
+
     </div>
 
     <div class="inserir_nota" id="editar_conteudo">
@@ -42,9 +45,8 @@
     <div id="corpo">
         <div id="main">
             
-        
-            
         </div>
+
         <button id="add_button" class="add_button" onclick="addNote()">
             <i class="fa-solid fa-plus"></i>
         </button>
@@ -54,22 +56,28 @@
         </button>
 
         <div id="Nav" class="navbar">
+
             <a href="javascript:void(0)" class="nav_close_button" onclick="closeNav()">&times;</a>
 
             <div id="list" class="list">
+
                 <div id="top_navbar">
                     <li><a href="#">(Nome do Usuário)</a></li>
                     <li><a href="#">(Tipo Perfil)</a></li>
                     <li><a href="#">Pessoas</a></li>
                 </div>
+
                 <div id="bottom_navbar">
                     <li><a href="#">Trocar Senha</a></li>
-                    <li><a href="#">Sair</a></li>
+                    <li><a href="./login.html">Sair</a></li>
                 </div>
+
             </div>
+
         </div>
          
     </div>
-    <script src="src/javascript/script.js"></script>
+
+    <script src="javascript/script.js"></script>
 </body>
 </html>

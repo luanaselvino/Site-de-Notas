@@ -8,6 +8,8 @@ body{
     padding: 0;
 }
 
+
+
 .inserir_nota {
     position: absolute;
     width: 65vw;
@@ -73,8 +75,8 @@ body{
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 900px;
-    height: 500px;
+    width: 60vw;
+    height: 65vh;
     background-color: rgb(253, 221, 252);
     
     margin: auto;
@@ -108,12 +110,13 @@ body{
     width: 60px;
     height: 60px;
     background-color: rgb(255, 255, 255);
-    bottom: 60px;
+    bottom: 15vh;
     right: 300px;
     border-radius: 100px;
     cursor: pointer;
     border-color: #dde3ee;
     transition-duration: 0.6s;
+    
 
 }
 
@@ -213,10 +216,6 @@ body{
     padding: 0px;
 }
 
-#open_button {
-    
-}
-
 .nav_open_button {
     width:40px;
     height:40px;
@@ -257,11 +256,6 @@ p {
     font-family: var(--font);
 }
 
-#top_navbar {
-    position: ;
-}
-
-
 #nav_close_button{
     margin-top: 30px;
     cursor: pointer;
@@ -276,5 +270,4 @@ p {
     font-family: var(--font);
     bottom: 30px;
     right: 30px;
-    position: ;
 }
