@@ -1,4 +1,2 @@
 # Site de Notas
-um site para fazer anotações em bloquinhos de notas
-
-sim é meu projeto.
+Aplicação web com interface amigável que simula um workplace colaborativo. Permite que usuários autenticados adicionem e visualizem notas em tempo real, com cada entrada vinculada ao autor.
