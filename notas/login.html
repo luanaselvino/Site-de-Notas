@@ -22,6 +22,16 @@
            
         }
 
+
+        span{
+            cursor: pointer;
+            color: rgb(22, 104, 255);
+        }
+
+        #form_cadastro{
+            display: none;
+        }
+
         form{
             background-color: rgba(0, 0, 0, 0.144);
             width: 400px;
@@ -51,30 +61,109 @@
 
 </head>
 <body>
-    
-    <form>
+
+    <form id="form_cadastro">
+        <h3>Cadastre-se</h3>
+        <input type="text" placeholder="Telefone, nome de usuário ou email" id="email_cadastro" required>
+        <input type="password" placeholder="Senha" id="senha_cadastro" required>
+        <input type="submit" value="Criar conta" id="enviar">
+        <p id="mensagem"></p>
+    </form>
+
+    <form id="form_login">
 
         <h3>Login</h3>
-        <input type="text" placeholder="Login" id="login">
-        <input type="password" placeholder="Senha" id="senha">
-        <input type="submit" id="enviar" onclick="logar(); return false">
+        <input type="text" placeholder="Login" id="email_login">
+        <input type="password" placeholder="Senha" id="senha_login">
+        <h4>Não tem uma conta? <span id="irParaCadastro">Cadastre-se</span></h4>
+        <h4><a href="./index.html">Entrar como visitante/demo</a></h4>
+        <input type="submit" value="Entrar" id="enviar">
 
     </form>
 
     <script>
-        
-        function logar(){
+        // Realizar cadastro
+        var form_cadastro = document.getElementById("form_cadastro");
+        var mensagem = document.getElementById("mensagem");
 
-            var login = document.getElementById('login').value;
-            var senha = document.getElementById('senha').value;
+        form_cadastro.addEventListener("submit", function(event){
 
-            if(login == "admin" && senha == "123"){
-                alert('Sucesso');
-                window.location.href = './index.html';
-            }else{
-                alert('Usuário ou senha incorretos')
+            event.preventDefault(); // evita recarregar a página
+
+            var email_cadastro = document.getElementById("email_cadastro").value;
+            var senha_cadastro = document.getElementById("senha_cadastro").value;
+
+            var usuario = {
+                email: email_cadastro,
+                senha: senha_cadastro
+            };
+
+            // Salvar no localStorage
+            var users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Verificar se já existe usuário com mesmo email
+            var existe = users.find(u => u.email === email_cadastro);
+            if (existe) {
+                mensagem.textContent = "Esse email já está cadastrado!";
+                mensagem.style.color = "red";
+                return;
             }
+
+            // Adicionar novo usuário na lista
+            users.push(usuario);
+
+            // Salvar lista atualizada
+            localStorage.setItem("users", JSON.stringify(users));
+
+            mensagem.textContent = "Conta criada com sucesso";
+            mensagem.style.color = "green";
+
+            // Limpar formulário
+            form_cadastro.reset();
+        });
+
+        // Entrar com conta existente
+        var form_login = document.getElementById("form_login");
+
+        if (form_login) {
+
+            form_login.addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                var email_login = document.getElementById("email_login").value;
+                var senha_login = document.getElementById("senha_login").value;
+
+                // Recuperar usuários salvos no localStorage
+                var users = JSON.parse(localStorage.getItem("users")) || [];
+
+                // Verificar se usuário existe
+                var user = users.find(u => u.email === email_login && u.senha === senha_login);
+
+                if (user) {
+                    alert("Login realizado com sucesso!");
+
+                    // Guardar info de usuário logado
+                    localStorage.setItem("usuario_logado", JSON.stringify(user));
+
+                    window.location.href = "index.html";
+                } else {
+                    alert("Usuário ou senha incorretos");
+                }
+
+            });
+
         }
+
+        // Abrir form de cadastro
+        var link_cadastro = document.getElementById("irParaCadastro");
+
+        link_cadastro.addEventListener("click", function() {
+
+            document.getElementById("form_cadastro").style.display="flex";
+            document.getElementById("form_login").style.display="none";
+
+        });
 
     </script>
 
