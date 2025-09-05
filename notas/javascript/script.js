@@ -25,6 +25,22 @@ function closeNota(){
     document.getElementById("inserir_nota").style.display = "none";
 }
 
+// Deslogar usuário
+var deslogar = document.getElementById("sair");
+
+deslogar.addEventListener("click", function(event){
+
+    event.preventDefault(); // evita recarregar a página
+
+    // Remove usuário logado do localStorage
+    localStorage.removeItem("usuario_logado");
+
+    // Redireciona para login
+    window.location.href = "login.html";
+
+});
+
+////////////////////////////////////////////////
 function Salvar(){
     document.getElementById("inserir_nota").style.display = "none";
     
@@ -32,31 +48,73 @@ function Salvar(){
     var conteudo = document.getElementById("paragrafo").value;
 
     if (conteudo !== "") {
-        const box = document.createElement('div');
-        box.classList.add('box');
-        box.innerHTML = `
-            <div id="titulo"><h1>${titulo}</h1></div>
-            <div id="conteudo">
-                <p id="conteudo_editavel">${conteudo}</p>
-                <div id="botoes">
-                    <button id="editar_nota" class="editar_nota" onclick="editarNota()">
-                        <i class="fa fa-pencil"></i>
-                    </button>
-            
-                    <button id="excluir_nota" class="excluir_nota" onclick="excluirNota()">
-                        <i class="fa fa-trash fa-lg"></i>
-                    </button>
-                </div>
-            </div>
-        `;
+        // Recupera usuário logado
+        var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+        if (!usuario_logado) {
+            alert("Nenhum usuário logado. Faça login novamente.");
+            return;
+        }
 
-        const main = document.getElementById("main");
-        main.appendChild(box);
+        // Recupera TODAS as notas já salvas
+        var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
+        // Se o usuário ainda não tem notas, cria um array vazio
+        if (!notas[usuario_logado.email]) {
+            notas[usuario_logado.email] = [];
+        }
+
+        // Criar objeto da nova nota
+        var novaNota = {
+            titulo: titulo,
+            conteudo: conteudo
+        };
+
+        // Adicionar no array do usuário
+        notas[usuario_logado.email].push(novaNota);
+
+        // Salvar de volta no localStorage
+        localStorage.setItem("notas", JSON.stringify(notas));
+
+        // Mostrar na tela
+        mostrarNota(novaNota);
     }
+
+    // Limpar os inputs
     document.getElementById("title").value = "";
     document.getElementById("paragrafo").value = "";
 }
+
+function mostrarNota(nota){
+    const box = document.createElement('div');
+    box.classList.add('box');
+    box.innerHTML = `
+        <div class="titulo"><h1>${nota.titulo}</h1></div>
+        <div class="conteudo">
+            <p class="conteudo_editavel">${nota.conteudo}</p>
+        </div>
+    `;
+    document.getElementById("main").appendChild(box);
+}
+
+window.onload = function(){
+    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+    //if (!usuario_logado) {
+        // Se não tem usuário logado → volta pro login
+        //window.location.href = "login.html";
+        //return;
+    //}
+
+    // Pegar notas do localStorage
+    var notas = JSON.parse(localStorage.getItem("notas")) || {};
+    var notasUsuario = notas[usuario_logado.email] || [];
+
+    // Mostrar cada nota desse usuário
+    notasUsuario.forEach(nota => {
+        mostrarNota(nota);
+    });
+};
+
+//////////////////////////////////////////////////////
 
 function editarNota() {
     document.getElementById("editar_conteudo").style.display = "block";
@@ -70,4 +128,3 @@ function editarNota() {
     document.getElementById("paragrafo").value = conteudo;
     
 }
-
