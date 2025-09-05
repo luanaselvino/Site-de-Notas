@@ -19,12 +19,12 @@ body{
     top: 1%;
     bottom: 1%;
     left: 1%;
-    right: 80px;
+    right: 330px;
     z-index: 100;
     border-radius: 30px;
     display: none;
     transition-duration: 0.6s;
-    box-shadow: 1px 1px 10px 0px rgb(163, 132, 159);
+    box-shadow: 1px 1px 10px 0px rgb(94, 94, 94);
 }
 
 #inserir_nota_moldura {
@@ -66,7 +66,7 @@ body{
     display: flex;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(255, 149, 149);
+    background-color: #fdf6ef;
 
 }
 
@@ -77,7 +77,7 @@ body{
     grid-template-columns: 1fr 1fr 1fr;
     width: 60vw;
     height: 65vh;
-    background-color: rgb(253, 221, 252);
+    background-color: #f3c6b96e;
     
     margin: auto;
     border: 200px;
@@ -97,11 +97,11 @@ body{
     
 }
 ::-webkit-scrollbar-thumb {
-    background: rgb(219, 175, 219);
+    background: #ffe0d8;
     width: 10px;
     height: 5px;
     border-radius: 20px 20px 20px 20px;
-    border: 2px solid  rgba(185, 134, 184, 0.788);
+    border: 2px solid  rgba(255, 255, 255, 0.788);
     
 }
 
@@ -111,7 +111,7 @@ body{
     height: 60px;
     background-color: rgb(255, 255, 255);
     bottom: 15vh;
-    right: 300px;
+    right: 400px;
     border-radius: 100px;
     cursor: pointer;
     border-color: #dde3ee;
@@ -125,7 +125,7 @@ body{
 }
 
 .box {
-    background-color: rgb(109, 124, 187);
+    background-color: hsl(246, 100%, 80%);
     width: 200px;
     height: 240px;
     margin-inline: 50px;
@@ -133,7 +133,7 @@ body{
     margin-bottom: 10px;
     border-radius: 15px;
     font-family: var(--font);
-    box-shadow: 1px 1px 10px 0px rgb(163, 132, 159);
+    box-shadow: 3px 5px 5px 0px #bea383;
 
 }
 
@@ -204,8 +204,8 @@ body{
 }
 
 .navbar {
-    width: 0px;
-    background-color: #719eff;
+    width: 250px;
+    background-color: #3b3f49;
     font-size: 10px;
     text-align: right;
     z-index: 9;
@@ -213,13 +213,14 @@ body{
     top: 0;
     overflow-x: hidden;
     transition: all 0.5s;
-    padding: 0px;
+    padding: 30px;
 }
 
 .nav_open_button {
+    display: none;
     width:40px;
     height:40px;
-    background-color: rgba(250, 235, 215, 0.267);
+    background-color: rgba(0, 0, 0, 0.267);
     border-radius: 10px;
     border: 0;
     margin-top: 30px;
@@ -234,6 +235,7 @@ body{
 }
 
 .list {
+    display: block;
     list-style: none;
     letter-spacing: 1px;
     margin-top: 30px;
@@ -249,7 +251,6 @@ a {
     font-family: var(--font);
     font-size: 15px;
     margin-top: 20px;
-    
 }
 
 p {
@@ -267,6 +268,7 @@ p {
 }
 
 #bottom_navbar {
+    position: fixed;
     font-family: var(--font);
     bottom: 30px;
     right: 30px;
