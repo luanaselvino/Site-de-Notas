@@ -25,6 +25,21 @@ function closeNota(){
     document.getElementById("inserir_nota").style.display = "none";
 }
 
+// Deslogar usuário
+var deslogar = document.getElementById("sair");
+
+deslogar.addEventListener("click", function(event){
+
+    event.preventDefault(); // evita recarregar a página
+
+    // Remove usuário logado do localStorage
+    localStorage.removeItem("usuario_logado");
+
+    // Redireciona para login
+    window.location.href = "login.html";
+
+});
+
 ////////////////////////////////////////////////
 function Salvar(){
     document.getElementById("inserir_nota").style.display = "none";
