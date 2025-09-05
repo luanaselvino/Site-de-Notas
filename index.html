@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ept-br">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Notes</title>
+</head>
+<body>
+
+    <div class="inserir_nota" id="inserir_nota">
+        
+        <div id="inserir_nota_moldura">
+
+            <a href="javascript:void(0)" class="nota_close_button" onclick="closeNota()"><p>&times;</p></a>
+
+            <h1><input type="text" name="" id="title" placeholder="Title"></h1>
+
+            <p><input type="text" name="" id="paragrafo" placeholder="Comece a escrever..."></p> 
+            
+            <a href="javascript:void(0)" class="nota" onclick="Nota()">
+                <p id="salvar" onclick="Salvar()">Salvar</p>
+            </a>
+
+        </div>
+
+    </div>
+
+    <!--<div class="inserir_nota" id="editar_conteudo">
+        <div id="inserir_nota_moldura">
+
+            <a href="javascript:void(0)" class="nota_close_button" onclick="closeNota()"><p>&times;</p></a>
+
+            <h1><input type="text" name="" id="title" placeholder="Title"></h1>
+
+            <p><input type="text" name="" id="paragrafo" placeholder="Comece a escrever..."></p> <!-- Mudar para textarea. EX: <textarea name="my-text" id="my-text" rows="8" cols="40"></textarea> 
+            
+            <a href="javascript:void(0)" class="nota" onclick="Nota()">
+                <p id="salvar" onclick="Salvar()">Salvar</p>
+            </a>
+        </div>
+    </div> -->
+
+    <div id="corpo">
+        <div id="main">
+            
+        </div>
+
+        <button id="add_button" class="add_button" onclick="addNote()">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+
+        <button id="open_button" class="nav_open_button" onclick="openNav()">
+            <i class="fa-solid fa-bars fa-2x"></i>
+        </button>
+
+        <div id="Nav" class="navbar">
+
+            <a href="javascript:void(0)" class="nav_close_button" onclick="closeNav()">&times;</a>
+
+            <div id="list" class="list">
+
+                <div id="top_navbar">
+                    <li><a href="#">(Nome do Usuário)</a></li>
+                    <li><a href="#">(Tipo Perfil)</a></li>
+                    <li><a href="#">Pessoas</a></li>
+                </div>
+
+                <div id="bottom_navbar">
+                    <li><a href="#">Trocar Senha</a></li>
+                    <li><button id="sair">Sair</button></li>
+                </div>
+
+            </div>
+
+        </div>
+         
+    </div>
+
+    <script src="javascript/script.js"></script>
+</body>
+</html>
