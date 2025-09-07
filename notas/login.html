@@ -3,64 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <title>Login</title>
-
-    <style>
-
-        *{
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body{
-            display: flex;
-            margin: 0;
-            min-height: 100vh;
-            justify-content: center;
-            align-items: center;
-           
-        }
-
-
-        span{
-            cursor: pointer;
-            color: rgb(22, 104, 255);
-        }
-
-        #form_cadastro{
-            display: none;
-        }
-
-        form{
-            background-color: rgba(0, 0, 0, 0.144);
-            width: 400px;
-            height: 300px;
-            border-radius: 15px;
-
-            display: flex;
-            flex-direction: column; /* coloca os elementos em coluna */
-            justify-content: center; /* centraliza verticalmente */
-            align-items: center;  /* centraliza horizontalmente */
-        }
-
-        input{
-            display: block;
-            margin: 10px auto;
-            width: 250px;
-            height: 30px;
-            border-radius: 5px;
-            padding: 0 10px;
-        }
-
-        #enviar{
-            width: 100px;
-        }
-
-    </style>
-
 </head>
 <body>
+
+    <div>
+        <h1>Bem-vindo(a)! <br> Suas IDEIAS estão esperando por você.</h1><br>
+        <img src="./Creativity-amico.png" alt="" class="imagem" width="300px">
+        <a href="https://storyset.com/people" class="credito">
+            People illustrations by Storyset
+        </a>
+</div>
 
     <form id="form_cadastro">
         <h3>Cadastre-se</h3>
@@ -72,11 +29,11 @@
 
     <form id="form_login">
 
-        <h3>Login</h3>
+        <h3>Faça Login!</h3>
         <input type="text" placeholder="Login" id="email_login">
         <input type="password" placeholder="Senha" id="senha_login">
         <h4>Não tem uma conta? <span id="irParaCadastro">Cadastre-se</span></h4>
-        <h4><a href="./index.html">Entrar como visitante</a></h4>
+        <h4><a href="./index.html">Entrar como visitante.</a></h4>
         <input type="submit" value="Entrar" id="enviar">
 
     </form>
