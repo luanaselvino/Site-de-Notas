@@ -6,14 +6,15 @@
 body{
     margin: 0;
     padding: 0;
+    background: #ffffff;
 }
 
 
 
 .inserir_nota {
     position: absolute;
-    width: 65vw;
-    height: 80vh;
+    width: 50vw;
+    height: 60vh;
     background-color: #fff;
     margin: auto;
     top: 1%;
@@ -38,6 +39,12 @@ body{
     text-align: right;
 }
 
+#close_nav{
+    background-color: #00000000;
+    border: none;
+    cursor: pointer;
+}
+
 .nota{
     color: rgba(0, 0, 0, 0.329);
     font-weight: bold;
@@ -47,7 +54,9 @@ body{
 }
 
 #title{
-    width: 100%;
+    width: 42.5vw;
+    height: 15px;
+    border-top: 2px;
     font-weight: bold;
     color: black;
     opacity: 100%;
@@ -56,9 +65,15 @@ body{
 }
 
 #paragrafo{
-    width: 100%;
-    height: 250px;
-    border: 10;
+    width: 42.5vw;
+    height: 15vh;
+    border: 100;
+    border-radius: 3px;
+    font-size: 15;
+}
+
+textarea, input{
+    padding: 20px;
 }
 
 
@@ -66,8 +81,7 @@ body{
     display: flex;
     width: 100vw;
     height: 100vh;
-    background-color: #fdf6ef;
-
+    background-color: #e9e9e95d;
 }
 
 
@@ -75,14 +89,13 @@ body{
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 60vw;
+    width: 65vw;
     height: 65vh;
-    background-color: #f3c6b96e;
     
     margin: auto;
-    border: 200px;
-    border-radius: 20px;
-    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.068);
+    border-radius: 5px;
+    padding: 25px;
     overflow-y: auto;
     overflow-x: hidden; 
 }
@@ -97,12 +110,11 @@ body{
     
 }
 ::-webkit-scrollbar-thumb {
-    background: #ffe0d8;
+    background: #cacaca4b;
     width: 10px;
     height: 5px;
     border-radius: 20px 20px 20px 20px;
     border: 2px solid  rgba(255, 255, 255, 0.788);
-    
 }
 
 #add_button {
@@ -116,8 +128,6 @@ body{
     cursor: pointer;
     border-color: #dde3ee;
     transition-duration: 0.6s;
-    
-
 }
 
 #add_button i{
@@ -125,16 +135,17 @@ body{
 }
 
 .box {
-    background-color: hsl(246, 100%, 80%);
-    width: 200px;
-    height: 240px;
-    margin-inline: 50px;
+    background-color: hsl(0, 0%, 100%);
+    width: 170px;
+    height: 220px;
+    margin-inline: 40px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 60px;
     border-radius: 15px;
     font-family: var(--font);
-    box-shadow: 3px 5px 5px 0px #bea383;
-
+    box-shadow: 0px 0px 5px 0px #bdbdbd65;
+    border: 2px solid rgba(0, 0, 0, 0.068);
+    padding: 20px;
 }
 
 #titulo {
@@ -146,7 +157,7 @@ body{
 
 #titulo h1{
     padding: 10px 10px 10px 10px;
-    font-size: 20px;
+    font-size: 1px;
 }
 
 #conteudo {
@@ -205,8 +216,11 @@ body{
 
 .navbar {
     width: 250px;
-    background-color: #3b3f49;
-    font-size: 10px;
+    background-color: #799674;
+    font-size: 15px;
+    font-family: Inter, sans-serif;
+    font-weight:bold;
+    color: #0000006e;
     text-align: right;
     z-index: 9;
     right: 0;
@@ -214,6 +228,8 @@ body{
     overflow-x: hidden;
     transition: all 0.5s;
     padding: 30px;
+    margin: 10px;
+    border-radius: 25px;
 }
 
 .nav_open_button {

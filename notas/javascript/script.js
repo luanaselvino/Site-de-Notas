@@ -1,20 +1,30 @@
 function openNav(){
+    document.getElementById("Nav").style.display = "block"
+    document.getElementById("open_button").style.display = 'none'
+
+    /*document.getElementById("Nav").style.display = "block"
     document.getElementById("Nav").style.width = '250px';
     document.getElementById("Nav").style.padding = '30px';
     document.getElementById("open_button").style.display = 'none';
     document.getElementById("list").style.display = "block";
     document.getElementById("bottom_navbar").style.position = "fixed"
     document.getElementById("add_button").style.right = "400px";
-    document.getElementById("inserir_nota").style.right = "330px";
+    document.getElementById("inserir_nota").style.right = "330px";*/
+
 }
 
 function closeNav(){
-    document.getElementById("Nav").style.width = '0%';
+
+    document.getElementById("Nav").style.display = "none"
+    document.getElementById("open_button").style.display = 'block';
+    
+    /*document.getElementById("Nav").style.width = '0%';
     document.getElementById("Nav").style.padding = '0px';
+    document.getElementById("Nav").style.display = "none"
     document.getElementById("open_button").style.display = 'block';
     document.getElementById("list").style.display = "none";
     document.getElementById("add_button").style.right = "300px";
-    document.getElementById("inserir_nota").style.right = "80px";
+    document.getElementById("inserir_nota").style.right = "80px";*/
 }
 
 function addNote(){
@@ -88,7 +98,7 @@ function mostrarNota(nota){
     const box = document.createElement('div');
     box.classList.add('box');
     box.innerHTML = `
-        <div class="titulo"><h1>${nota.titulo}</h1></div>
+        <div class="titulo"><h2>${nota.titulo}</h2></div>
         <div class="conteudo">
             <p class="conteudo_editavel">${nota.conteudo}</p>
         </div>

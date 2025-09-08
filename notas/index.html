@@ -16,8 +16,7 @@
             <a href="javascript:void(0)" class="nota_close_button" onclick="closeNota()"><p>&times;</p></a>
 
             <h1><input type="text" name="" id="title" placeholder="Title"></h1>
-
-            <p><input type="text" name="" id="paragrafo" placeholder="Comece a escrever..."></p> 
+            <p><textarea name="" id="paragrafo" placeholder="Comece a escrever..."></textarea></p>
             
             <a href="javascript:void(0)" class="nota" onclick="Nota()">
                 <p id="salvar" onclick="Salvar()">Salvar</p>
@@ -43,12 +42,11 @@
     </div> -->
 
     <div id="corpo">
-        <div id="main">
-            
-        </div>
+
+        <div id="main"></div>
 
         <button id="add_button" class="add_button" onclick="addNote()">
-            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-plus fa-2x"></i>
         </button>
 
         <button id="open_button" class="nav_open_button" onclick="openNav()">
@@ -57,12 +55,14 @@
 
         <div id="Nav" class="navbar">
 
-            <a href="javascript:void(0)" class="nav_close_button" onclick="closeNav()">&times;</a>
+            <button id="close_nav" onclick="closeNav()">
+                <i class="fa-regular fa-circle-xmark fa-2x" style="color: #0000006e;"></i>
+            </button>
 
             <div id="list" class="list">
 
                 <div id="top_navbar">
-                    <li><a href="#">(Nome do Usuário)</a></li>
+                    <li>(Nome do Usuário)</li>
                     <li><a href="#">(Tipo Perfil)</a></li>
                     <li><a href="#">Pessoas</a></li>
                 </div>
