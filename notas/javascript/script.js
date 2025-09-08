@@ -1,6 +1,8 @@
 function openNav(){
     document.getElementById("Nav").style.display = "block"
     document.getElementById("open_button").style.display = 'none'
+    document.getElementById("add_button").style.right = "400px";
+    document.getElementById("inserir_nota").style.right = "330px";
 
     /*document.getElementById("Nav").style.display = "block"
     document.getElementById("Nav").style.width = '250px';
@@ -16,7 +18,10 @@ function openNav(){
 function closeNav(){
 
     document.getElementById("Nav").style.display = "none"
-    document.getElementById("open_button").style.display = 'block';
+    document.getElementById("open_button").style.display = 'block'
+    
+    document.getElementById("add_button").style.right = "275px";
+    document.getElementById("inserir_nota").style.right = "80px";
     
     /*document.getElementById("Nav").style.width = '0%';
     document.getElementById("Nav").style.padding = '0px';
@@ -68,14 +73,14 @@ function Salvar(){
         // Recupera TODAS as notas já salvas
         var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
-        // Se o usuário ainda não tem notas, cria um array vazio
+        // Sempre cria espaço para o usuário atual (visitante ou não)
         if (!notas[usuario_logado.email]) {
             notas[usuario_logado.email] = [];
         }
 
         // Criar objeto da nova nota
         var novaNota = {
-            titulo: titulo,
+            titulo: titulo || "Sem título",
             conteudo: conteudo
         };
 
@@ -108,22 +113,25 @@ function mostrarNota(nota){
 
 window.onload = function(){
     var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-    //if (!usuario_logado) {
-        // Se não tem usuário logado → volta pro login
-        //window.location.href = "login.html";
-        //return;
-    //}
 
-    // Pegar notas do localStorage
+    if (!usuario_logado) {
+        window.location.href = "login.html";
+        return;
+    }
+
     var notas = JSON.parse(localStorage.getItem("notas")) || {};
-    var notasUsuario = notas[usuario_logado.email] || [];
+
+    // garante que sempre exista o array do usuário atual
+    if (!notas[usuario_logado.email]) {
+        notas[usuario_logado.email] = [];
+        localStorage.setItem("notas", JSON.stringify(notas));
+    }
 
     // Mostrar cada nota desse usuário
-    notasUsuario.forEach(nota => {
+    notas[usuario_logado.email].forEach(nota => {
         mostrarNota(nota);
     });
 };
-
 //////////////////////////////////////////////////////
 
 function editarNota() {

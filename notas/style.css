@@ -90,7 +90,7 @@ textarea, input{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 65vw;
-    height: 65vh;
+    height: 70vh;
     
     margin: auto;
     border: 1px solid rgba(0, 0, 0, 0.068);
@@ -148,16 +148,17 @@ textarea, input{
     padding: 20px;
 }
 
-#titulo {
-    background-color: aliceblue;
-    height: 8vh;
-    margin-top: -15px;
-    border-radius: 15px 15px 0px 0px;
-}
+.titulo h2{
+    height: 4vh;
+    margin-top: -5px;
+    color: #424642;
+    font-size: 20px;
 
-#titulo h1{
-    padding: 10px 10px 10px 10px;
-    font-size: 1px;
+    white-space: nowrap;       /* não quebra linha */
+    overflow: hidden;          /* corta o que passa */
+    text-overflow: ellipsis;   /* adiciona "..." no fim */
+    max-width: 100%;           /* limite do corte (pode trocar por px se quiser fixo) */
+    display: block;            /* garante que funcione */
 }
 
 #conteudo {
@@ -165,6 +166,24 @@ textarea, input{
     height: 28vh;
     margin-top: -16PX;
 }
+
+.conteudo_editavel {
+  display: -webkit-box;
+  -webkit-box-orient: vertical; /* número de linhas que quer mostrar */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+
+  /* visual / quebra de palavras */
+  line-height: 1.4;           /* ajuste se precisar */
+  max-height: calc(1.4em * 8);/* fallback para navegadores sem -webkit-line-clamp (ex: Firefox) */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+
+
 
 #conteudo p {
     padding: 10px 10px 10px 10px;
@@ -215,13 +234,12 @@ textarea, input{
 }
 
 .navbar {
-    width: 250px;
+    width: 200px;
     background-color: #799674;
     font-size: 15px;
     font-family: Inter, sans-serif;
     font-weight:bold;
     color: #0000006e;
-    text-align: right;
     z-index: 9;
     right: 0;
     top: 0;
@@ -287,5 +305,4 @@ p {
     position: fixed;
     font-family: var(--font);
     bottom: 30px;
-    right: 30px;
 }
