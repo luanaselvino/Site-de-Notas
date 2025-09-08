@@ -6,21 +6,26 @@
     <link rel="stylesheet" href="style_login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
 
-    <div>
-        <h1>Bem-vindo(a)! <br> Suas IDEIAS estão esperando por você.</h1><br>
-        <img src="./Creativity-amico.png" alt="" class="imagem" width="300px">
-        <a href="https://storyset.com/people" class="credito">
+    <div id="welcome">
+        <h1>Bem-vindo(a)! <br> <span>Suas IDEIAS estão esperando por você.</span></h1><br>
+        <img src="./Innovation-amico.png" alt="" class="imagem" width="300px">
+        <a href="https://storyset.com/people" target="_blank" class="credito">
             People illustrations by Storyset
         </a>
-</div>
+    </div>
 
     <form id="form_cadastro">
-        <h3>Cadastre-se</h3>
+    
+        <button id="voltar_login" onclick="voltarLogin()">
+            <i class="fa-regular fa-circle-left fa-spin fa-4x" style="color: #79967486;"></i>
+        </button>
+        <h2>Cadastre-se</h2>
         <input type="text" placeholder="Telefone, nome de usuário ou email" id="email_cadastro" required>
         <input type="password" placeholder="Senha" id="senha_cadastro" required>
         <input type="submit" value="Criar conta" id="enviar">
@@ -29,10 +34,10 @@
 
     <form id="form_login">
 
-        <h3>Faça Login!</h3>
+        <h2>Faça Login!</h2>
         <input type="text" placeholder="Login" id="email_login">
-        <input type="password" placeholder="Senha" id="senha_login">
-        <h4>Não tem uma conta? <span id="irParaCadastro">Cadastre-se</span></h4>
+        <input type="password" placeholder="Senha" id="senha_login"><br>
+        <h3>Não tem uma conta? <span id="irParaCadastro">Cadastre-se</span></h3><br>
         <h4><a href="./index.html">Entrar como visitante.</a></h4>
         <input type="submit" value="Entrar" id="enviar">
 
@@ -121,6 +126,10 @@
             document.getElementById("form_login").style.display="none";
 
         });
+
+        function voltarLogin(){
+            window.location.href = "login.html"
+        }
 
     </script>
 

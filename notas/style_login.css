@@ -5,9 +5,9 @@
     }
 
 body{
-    background-color: #ffffff;
+    background: #ffffff;
+    background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(121, 150, 116, 0.83) 99%);
     display: flex;
-    margin: 0;
     min-height: 100vh;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,12 @@ body{
 
 span{
     cursor: pointer;
-    color: rgb(22, 104, 255);
+    color: #799674;
+}
+
+#welcome span{
+    font-size: 25px;
+    cursor: default;
 }
 
 #form_cadastro{
@@ -23,34 +28,56 @@ span{
 }
 
 form{
-    background-color: rgba(0, 0, 0, 0);
-    width: 400px;
-    height: 300px;
+    background-color: rgba(255, 18, 18, 0);
+    width: 450px;
+    height: 350px;
     border-radius: 15px;
 
     display: flex;
     flex-direction: column; /* coloca os elementos em coluna */
     justify-content: center; /* centraliza verticalmente */
     align-items: center;  /* centraliza horizontalmente */
+    
+}
+
+button{
+    border: none;
+    background-color: #3b3f4900;
+    margin: 10px;
+    cursor: pointer;
 }
 
 input{
     display: block;
     margin: 10px auto;
-    width: 250px;
-    height: 30px;
+    width: 300px;
+    height: 40px;
     border-radius: 5px;
     padding: 0 10px;
+    border-color: #3b3f491f;
+    border-style: solid;
 }
 
 #enviar{
-    width: 100px;
+    width: 300px;
+    height: 60px;
+    border-radius: 200px;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #79967486;
+    /*background: #A1FFC5;
+    background: linear-gradient(180deg, rgba(161, 255, 197, 0.44) 0%, rgba(121, 150, 116, 0.82) 50%, rgba(161, 255, 197, 0.46) 100%);*/
+    /*border-color: #3b3f4948;*/
+    cursor: pointer;
+
 }
 
-div{
+#welcome{
     width: 45vw;
     height: 65vh;
-    margin: 60px;
+    margin: 0px;
 }
 
 .imagem {
@@ -66,10 +93,15 @@ div{
 h1, h2, h3, h4{
     color: #3b3f49;
     font-family: Inter, sans-serif;
+    cursor: default;
+}
+
+h2{
+    font-size: 35px;
 }
 
 a{
-    color: #848588;
+    color: #525253;
     text-decoration: none;
     font-size: 13px;
 }
