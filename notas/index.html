@@ -1,83 +1,72 @@
 <!DOCTYPE html>
-<html lang="ept-br">
+<html lang="pt-br">
 <head>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Link de ícones (fontawesome.com) -->
+    <title>Notas</title>
 </head>
+
 <body>
 
-    <div class="inserir_nota" id="inserir_nota">
+    <div id="inserir_nota">
+
+        <button id="close_nota">&times;</button>
+
+        <input type="text" id="title" placeholder="Título">
+        <textarea id="paragrafo" placeholder="Comece a escrever..."></textarea>
         
-        <div id="inserir_nota_moldura">
-
-            <a href="javascript:void(0)" class="nota_close_button" onclick="closeNota()"><p>&times;</p></a>
-
-            <h1><input type="text" name="" id="title" placeholder="Title"></h1>
-            <p><textarea name="" id="paragrafo" placeholder="Comece a escrever..."></textarea></p>
-            
-            <a href="javascript:void(0)" class="nota" onclick="Nota()">
-                <p id="salvar" onclick="Salvar()">Salvar</p>
-            </a>
-
-        </div>
+        <button id="salvar" onclick="Salvar()">SALVAR</button>
 
     </div>
 
-    <!--<div class="inserir_nota" id="editar_conteudo">
-        <div id="inserir_nota_moldura">
-
-            <a href="javascript:void(0)" class="nota_close_button" onclick="closeNota()"><p>&times;</p></a>
-
-            <h1><input type="text" name="" id="title" placeholder="Title"></h1>
-
-            <p><input type="text" name="" id="paragrafo" placeholder="Comece a escrever..."></p> <!-- Mudar para textarea. EX: <textarea name="my-text" id="my-text" rows="8" cols="40"></textarea> 
-            
-            <a href="javascript:void(0)" class="nota" onclick="Nota()">
-                <p id="salvar" onclick="Salvar()">Salvar</p>
-            </a>
-        </div>
-    </div> -->
-
     <div id="corpo">
 
-        <div id="main"></div>
+        <div id="main"> <!-- Espaço para notas -->
 
-        <button id="add_button" class="add_button" onclick="addNote()">
+            <!-- Nota padrão -->
+            <div class="box">
+                <div class="titulo">Bem-vindo(a)!</div>
+                <div class="conteudo">- Crie notas.<br>- Edite fácil.<br>- Apague rápido.<br>- Encontre tudo.</div>
+            </div>
+
+        </div>
+
+        <!-- Button para abrir div="inserir_nota" -->
+        <button id="add_button">
             <i class="fa-solid fa-plus fa-2x"></i>
         </button>
 
-        <button id="open_button" class="nav_open_button" onclick="openNav()">
+        <!-- Abrir nav -->
+        <button id="open_nav">
             <i class="fa-solid fa-bars fa-2x"></i>
         </button>
 
-        <div id="Nav" class="navbar">
+        <div id="Nav">
 
-            <button id="close_nav" onclick="closeNav()">
+            <!-- Fechar nav -->
+            <button id="close_nav">
                 <i class="fa-regular fa-circle-xmark fa-2x" style="color: #0000006e;"></i>
             </button>
 
-            <div id="list" class="list">
+            <div id="list">
 
                 <div id="top_navbar">
                     <li>(Nome do Usuário)</li>
-                    <li><a href="#">(Tipo Perfil)</a></li>
-                    <li><a href="#">Pessoas</a></li>
+                    <li>(Tipo Perfil)</li>
+                    <li>Pessoas</li>
                 </div>
 
                 <div id="bottom_navbar">
-                    <li><a href="#">Trocar Senha</a></li>
+                    <li>Trocar Senha</li>
                     <li><button id="sair">Sair</button></li>
                 </div>
 
             </div>
-
         </div>
-         
     </div>
 
-    <script src="javascript/script.js"></script>
+    <script src="javascript/script_index.js"></script>
 </body>
 </html>

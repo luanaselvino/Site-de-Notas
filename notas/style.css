@@ -1,308 +1,344 @@
 
-:root {
-    --font: Arial, Helvetica, sans-serif;
-}
+/*:root {
+
+}*/
 
 body{
     margin: 0;
     padding: 0;
-    background: #ffffff;
+
+    /* Gradiente de fundo */
+    background: #ffffff; 
 }
 
+/* Início inserir_nota */
 
-
-.inserir_nota {
+#inserir_nota {
+    /* Sobrepor a div sobre os elementos da tela */
     position: absolute;
-    width: 50vw;
-    height: 60vh;
-    background-color: #fff;
+    display: none; /* deixar div invísivel */
+
+    /* Tamanho da div */
+    width: 650px;
+    height: 420px;
+
+    /* Ajustar posição */
+    
     margin: auto;
-    top: 1%;
-    bottom: 1%;
+    margin-inline: 300px;
     left: 1%;
     right: 330px;
+    top: 1%;
+    bottom: 1%;
     z-index: 100;
+
+    background-color: #ffffff;
     border-radius: 30px;
-    display: none;
-    transition-duration: 0.6s;
     box-shadow: 1px 1px 10px 0px rgb(94, 94, 94);
+    transition-duration: 0.6s;
 }
 
-#inserir_nota_moldura {
-    padding: 0px 30px 30px 30px;
+#close_nota, #title, #paragrafo, #salvar {
+    display: block;
 }
 
-.nota_close_button {
-    cursor: pointer;
+#close_nota {
+    /* Tamanho da div */
+    width: 8%;
+    text-align: right;
+    
+    /* Fonte */
+    font: bold 60px Arial, sans-serif;
     color: rgba(0, 0, 0, 0.295);
-    font-size: 40px;
-    text-align: right;
-}
 
-#close_nav{
-    background-color: #00000000;
+    /* Ajustar posição */
+    margin-top: 10px;
+    margin-right: 72px;
+    margin-left: auto; /* joga para a direita */
+    /*float: right; /* empurra a div para a direita */
+    
+    background: none;
     border: none;
+
     cursor: pointer;
 }
 
-.nota{
-    color: rgba(0, 0, 0, 0.329);
-    font-weight: bold;
-    width: 50px;
-    cursor: pointer;
-    text-align: right;
+#title:focus, #paragrafo:focus{
+    outline: none;
+    color: #424642;
 }
 
 #title{
-    width: 42.5vw;
-    height: 15px;
-    border-top: 2px;
-    font-weight: bold;
-    color: black;
-    opacity: 100%;
-    border: 0;
-    font-size: 50px;
+    /* Tamanho da div */
+    width: 80%;
+    height: 55px;
+
+    /* Fonte */
+    font: bold 50px Arial, sans-serif;
+    color:black;
+
+    padding: 15px;
+    box-sizing: border-box;
+
+    /* Remover bordas*/
+    border-style: none;
+
+    /* Ajustar posição */
+    margin: auto;
+    margin-bottom: 20px;
 }
 
 #paragrafo{
-    width: 42.5vw;
-    height: 15vh;
-    border: 100;
-    border-radius: 3px;
-    font-size: 15;
+    /* Tamanho da div */
+    width: 80%;
+    height: 23vh;
+    resize: none; /* desativa redimeensionamento */
+
+    /* Fonte */
+    font-size: 18px;
+
+    /* Bordas */
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.295);;
+    
+    /* Ajustar posição */
+    padding: 15px;
+    box-sizing: border-box;
+    margin: auto;
 }
 
-textarea, input{
-    padding: 20px;
+
+#salvar{
+    width: 80px;
+
+    /* Fontes */
+    color: rgba(0, 0, 0, 0.568);
+    font: bold 15px Arial, sans-serif;
+    text-align: right;
+
+    /* Ajustar posição */
+    margin: 30px 50px 15px 0; /* top, right, bottom, left*/
+    margin-left: auto; /* joga para a direita */
+    margin-right: 72px;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
 }
 
+/* Fim inserir_nota */
+
+/* Início grid de notas */
 
 #corpo {
-    display: flex;
     width: 100vw;
     height: 100vh;
+
+    display: flex;
     background-color: #e9e9e95d;
 }
 
-
 #main {
+    /* Tamanho da div */
+    width: 65vw;
+    height: 80vh;
+    
+    /* Ajustar posição */
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 65vw;
-    height: 70vh;
-    
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
     margin: auto;
-    border: 1px solid rgba(0, 0, 0, 0.068);
-    border-radius: 5px;
     padding: 25px;
     overflow-y: auto;
-    overflow-x: hidden; 
+    overflow-x: hidden;
+
+    /* Bordas */
+    border: 1px solid rgba(100, 100, 100, 0.068);
+    border-radius: 25px;
 }
 
-::-webkit-scrollbar-track {
-  border-radius: 0px 20px 20px 0px;
-}
-
-::-webkit-scrollbar {
+::-webkit-scrollbar { /* área de scroll */
     width: 15px;
-    height: 5px;
-    
 }
-::-webkit-scrollbar-thumb {
-    background: #cacaca4b;
-    width: 10px;
-    height: 5px;
+::-webkit-scrollbar-thumb { /* scroll */
+    background: #e2e2e2;
+    
     border-radius: 20px 20px 20px 20px;
-    border: 2px solid  rgba(255, 255, 255, 0.788);
+    border: 2px solid  rgba(255, 255, 255, 0.712);
 }
 
 #add_button {
+    /* Tamanho da div */
+    width: 80px;
+    height: 80px;
+
+    /* Ajustar posição */
     position: absolute;
-    width: 60px;
-    height: 60px;
-    background-color: rgb(255, 255, 255);
-    bottom: 15vh;
-    right: 400px;
+    bottom: 10vh;
+    right: 27vw;
+
     border-radius: 100px;
     cursor: pointer;
     border-color: #dde3ee;
-    transition-duration: 0.6s;
+    background-color: rgb(255, 255, 255);
 }
 
-#add_button i{
+#add_button i{ /* ícone do button */
     color: #7b828f;
 }
 
+/* Notas */
 .box {
-    background-color: hsl(0, 0%, 100%);
-    width: 170px;
-    height: 220px;
-    margin-inline: 40px;
+    /* Tamanho da div */
+    width: 130px;
+    height: 180px;
+
+    /* Ajustar posição */
+    margin-inline: 20px;
     margin-top: 10px;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
+
     border-radius: 15px;
-    font-family: var(--font);
-    box-shadow: 0px 0px 5px 0px #bdbdbd65;
     border: 2px solid rgba(0, 0, 0, 0.068);
-    padding: 20px;
+
+    font-family: var(--font);
+    padding: 18px;
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0px 0px 5px 0px #bdbdbd65;
 }
 
-.titulo h2{
-    height: 4vh;
+.titulo{
+    /* Ajustar posição */
     margin-top: -5px;
+    margin-bottom: 10px;
+
+    /* Fonte */
+    font: bold 15px Arial, sans-serif;
     color: #424642;
-    font-size: 20px;
+    text-align: center;
 
-    white-space: nowrap;       /* não quebra linha */
-    overflow: hidden;          /* corta o que passa */
-    text-overflow: ellipsis;   /* adiciona "..." no fim */
-    max-width: 100%;           /* limite do corte (pode trocar por px se quiser fixo) */
-    display: block;            /* garante que funcione */
+    /* Formatação do texto */
+    white-space: nowrap; /* não quebra linha */
+    overflow: hidden; /* limita o texto */
+    text-overflow: ellipsis; /* adiciona "..." */
+    max-width: 100%; /* limite */
+    display: block;
 }
 
-#conteudo {
-    position: relative;
-    height: 28vh;
-    margin-top: -16PX;
-}
+.conteudo {
+    font: 12px Arial, sans-serif;
+    /* Display do texto */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7; /* número de linhas */
+    max-height: calc(1.6em * 7);/* fallback para navegadores sem -webkit-line-clamp*/
+    line-height: 1.6;
 
-.conteudo_editavel {
-  display: -webkit-box;
-  -webkit-box-orient: vertical; /* número de linhas que quer mostrar */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-
-  /* visual / quebra de palavras */
-  line-height: 1.4;           /* ajuste se precisar */
-  max-height: calc(1.4em * 8);/* fallback para navegadores sem -webkit-line-clamp (ex: Firefox) */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
-}
-
-
-
-
-#conteudo p {
-    padding: 10px 10px 10px 10px;
-    font-size: 15px;
-}
-
-#botoes {
-    position: absolute;
-    bottom: 0px;
-    right: 3px;
-    width: 60px;
-
-}
-
-.box:hover #editar_nota {
-    visibility: visible;
-}
-
-.box:hover #excluir_nota {
-    visibility: visible;
-}
-
-#editar_nota {
-    color: #fff;
-    background-color: rgba(240, 255, 255, 0.096);
-    width: 25px;
-    height: 25px;
-    border: none;
-    cursor: pointer;
-    visibility: hidden;
-    border-radius: 5px;
-    padding: auto;
-
-}
-
-#excluir_nota {
-    color: #fff;
-    background-color: rgba(240, 255, 255, 0.096);
-    width: 25px;
-    height: 25px;
-    border: none;
-    margin: auto;
-    cursor: pointer;
-    visibility: hidden;
-    border-radius: 5px;
-    padding: auto;
+    overflow: hidden; /* limita o texto */
+    text-overflow: ellipsis; /* adiciona "..." */
+    white-space: normal; /* não manter espaços extras */
     
+    /* Permitir quebrar palavras longas no meio */
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
+    hyphens: auto; /* inserir hífens ao quebrar palavras */
 }
 
-.navbar {
+/* Fim grid de notas */
+
+/* Início Navbar */
+
+#open_nav {
+    /* Tamanho da div */
+    width: 40px;
+    height: 40px;
+
+    /* Ajustar posição */
+    display: none;
+    margin: 20px;
+    cursor: pointer;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center; /* centraliza verticalmente */
+
+    border-radius: 10px;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.267);
+}
+
+#open_nav i { /* ícone do button */
+    font-size: 25px;
+    color: #fff;
+}
+
+#Nav {
+   /* Tamanho da div */
     width: 200px;
-    background-color: #799674;
-    font-size: 15px;
-    font-family: Inter, sans-serif;
-    font-weight:bold;
+
+    /* Fonte */
+    font: bold 15px Inter, sans-serif;
     color: #0000006e;
-    z-index: 9;
+
+    /* Ajustar posição */
+    margin: 10px;
+    display: flex;
+    flex-direction: column; /* organiza embaixo */
+    gap: 10px;
+
+    z-index: 9; /* ordem de empilhamento */
     right: 0;
     top: 0;
     overflow-x: hidden;
     transition: all 0.5s;
+
     padding: 30px;
-    margin: 10px;
     border-radius: 25px;
+    background-color: #799674;
 }
 
-.nav_open_button {
-    display: none;
-    width:40px;
-    height:40px;
-    background-color: rgba(0, 0, 0, 0.267);
-    border-radius: 10px;
-    border: 0;
-    margin-top: 30px;
-    margin-right: 15px;
+/* Button */
+#close_nav{
+    /* Tamanho da div */
+    width: 35px;
+    height: 35px;
+
+    /* Ajustar posição */
+    margin-left: auto; /* empurrar para direita */
+
+    background: none;
+    border: none;
     cursor: pointer;
-    justify-self: end;
-    
 }
 
-.nav_open_button i {
-    color: #fff;
-}
-
-.list {
+#list {
     display: block;
+    margin-top: 30px;
     list-style: none;
     letter-spacing: 1px;
-    margin-top: 30px;
 }
 
-.list li {
+#list li {
     margin-top: 25px;
-}
-
-a {
-    color: #fff;
-    text-decoration: none;
-    font-family: var(--font);
-    font-size: 15px;
-    margin-top: 20px;
-}
-
-p {
-    font-family: var(--font);
-}
-
-#nav_close_button{
-    margin-top: 30px;
-    cursor: pointer;
-    justify-self: end;
-}
-
-.menu:active {
-    background-color: blue;
 }
 
 #bottom_navbar {
     position: fixed;
-    font-family: var(--font);
     bottom: 30px;
+}
+
+#sair{
+    display: block;
+    
+    padding: 0; /* remove espaçamento interno */
+    margin: 0; /* remove espaçamento externo */
+    margin-bottom: 20px;
+
+    background: none;  /* remove fundo (se quiser) */
+    border: none;
+    cursor: pointer;
+
+    /* Fonte */
+    font: bold 15px Inter, sans-serif;
+    color: #0000006e;
 }
