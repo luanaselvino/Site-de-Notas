@@ -13,40 +13,51 @@
 </head>
 
 <body>
+    <div id="main">
 
-    <div id="welcome">
+        <!-- container visual  -->
+        <div id="container">
 
-        <h1>Bem-vindo(a)!<br><span>Suas IDEIAS estão esperando por você.</span></h1>
-        <img src="./Innovation-amico.png" alt="" id="imagem" width="300px">
-        <a href="https://storyset.com/people" target="_blank" class="credito">
-            People illustrations by Storyset
-        </a>
+            <h1>Bem-vindo(a)!<br><span>Suas IDEIAS estão esperando por você.</span></h1>
+            <img src="./login_image.png" alt="" id="image">
 
+        </div>
+
+        <form id="form_login">
+
+            <h2>Faça Login!</h2>
+
+            <input type="text" placeholder="Login" id="email_login">
+            <input type="password" placeholder="Senha" id="senha_login">
+
+            <h3>Não tem uma conta? <span id="irParaCadastro">Cadastre-se</span></h3>
+
+            <h4><a href="#" id="entrar_visitante">Entrar como visitante</a></h4>
+
+            <input type="submit" value="Entrar" id="enviar">
+
+        </form>
+
+        <form id="form_cadastro">
+        
+            <button id="voltar_login"><i class="fa-regular fa-circle-left fa-spin fa-4x" style="color: #79967486;"></i></button>
+
+            <h2>Cadastre-se</h2>
+
+            <input type="text" placeholder="Digite seu nome de usuário" id="nome_cadastro" required>
+            <input type="text" placeholder="Digite um email" id="email_cadastro" required>
+            <input type="password" placeholder="Senha" id="senha_cadastro" required>
+
+            <input type="submit" value="Criar conta" id="enviar">
+            <p id="mensagem"></p>
+
+        </form>
+        
     </div>
 
-    <form id="form_cadastro">
-    
-        <button id="voltar_login" onclick="voltarLogin()">
-            <i class="fa-regular fa-circle-left fa-spin fa-4x" style="color: #79967486;"></i>
-        </button>
-        <h2>Cadastre-se</h2>
-        <input type="text" placeholder="Telefone, nome de usuário ou email" id="email_cadastro" required>
-        <input type="password" placeholder="Senha" id="senha_cadastro" required>
-        <input type="submit" value="Criar conta" id="enviar">
-        <p id="mensagem"></p>
-
-    </form>
-
-    <form id="form_login">
-
-        <h2>Faça Login!</h2>
-        <input type="text" placeholder="Login" id="email_login">
-        <input type="password" placeholder="Senha" id="senha_login"><br>
-        <h3>Não tem uma conta? <span id="irParaCadastro">Cadastre-se</span></h3><br>
-        <h4><a href="#" id="entrar_visitante">Entrar como visitante</a></h4>
-        <input type="submit" value="Entrar" id="enviar">
-
-    </form>
+    <footer id="credito">
+        <a href="https://storyset.com/people" target="_blank" class="credito">People illustrations by Storyset</a>
+    </footer>
 
     <script src="javascript/script_login.js"></script>
 </body>

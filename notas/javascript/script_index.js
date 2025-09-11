@@ -1,29 +1,29 @@
-// REVISAR: Salvar, deslogar, mostrarNota(), onload.
-
 // Fechar editor de notas
 document.getElementById("close_nota").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "none";
+
+    // Limpar os inputs
+    document.getElementById("titulo").value = "";
+    document.getElementById("conteudo").value = "";
 });
 
 // Salvar notas criadas com localStorage
 document.getElementById("salvar").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "none";
     
-    var titulo = document.getElementById("title").value;
-    var conteudo = document.getElementById("paragrafo").value;
+    var titulo = document.getElementById("titulo").value;
+    var conteudo = document.getElementById("conteudo").value;
 
     if (conteudo !== "") {
         // Recupera usuário logado
-        var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-        if (!usuario_logado) {
-            alert("Nenhum usuário logado. Faça login novamente.");
-            return;
-        }
+        // JSON.parse() transforma a informação que estava como texto de volta em objeto de JS
+        var usuario_logado = JSON.parse(localStorage.getItem ("usuario_logado"));
 
-        // Recupera TODAS as notas já salvas
+        // Recupera TODAS as notas já salvas ou cria um objeto vazio {}
         var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
-        // Sempre cria espaço para o usuário atual (visitante ou não)
+        // Verifica se o usuário ainda não tem uma lista de notas
+        //Se não tiver, cria uma lista vazia
         if (!notas[usuario_logado.email]) {
             notas[usuario_logado.email] = [];
         }
@@ -34,20 +34,30 @@ document.getElementById("salvar").addEventListener("click", function() {
             conteudo: conteudo
         };
 
-        // Adicionar no array do usuário
+        // Pegamos a lista de notas do usuário atual (notas[usuario_logado.email]) e colocamos a nova nota dentro dela.
         notas[usuario_logado.email].push(novaNota);
 
         // Salvar de volta no localStorage
         localStorage.setItem("notas", JSON.stringify(notas));
 
-        // Mostrar na tela
+        // Mostrar na tela // Chamar função mostrarNota()
         mostrarNota(novaNota);
     }
 
     // Limpar os inputs
-    document.getElementById("title").value = "";
-    document.getElementById("paragrafo").value = "";
+    document.getElementById("titulo").value = "";
+    document.getElementById("conteudo").value = "";
 });
+
+function mostrarNota(nota){
+    const box = document.createElement('div');
+    box.classList.add('box');
+    box.innerHTML = `
+        <div class="titulo">${nota.titulo}</div>
+        <div class="conteudo">${nota.conteudo}</div>
+    `;
+    document.getElementById("main").appendChild(box);
+}
 
 // Abrir div="inserir_nota"
 document.getElementById("add_button").addEventListener("click", function() {
@@ -70,8 +80,6 @@ document.getElementById("close_nav").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.right = "80px";
 });
 
-////////////////////////////////////////////////
-
 // Deslogar usuário
 var deslogar = document.getElementById("sair");
 
@@ -87,37 +95,18 @@ deslogar.addEventListener("click", function(event){
 
 });
 
-////////////////////////////////////////////////
-
-function mostrarNota(nota){
-    const box = document.createElement('div');
-    box.classList.add('box');
-    box.innerHTML = `
-        <div class="titulo">${nota.titulo}</div>
-        <div class="conteudo">${nota.conteudo}</div>
-    `;
-    document.getElementById("main").appendChild(box);
-}
-
-////////////////////////////////////////////////
-
+// window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload = function(){
     var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-
-    if (!usuario_logado) {
-        window.location.href = "login.html";
-        return;
-    }
-
     var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
-    // garante que sempre exista o array do usuário atual
     if (!notas[usuario_logado.email]) {
         notas[usuario_logado.email] = [];
         localStorage.setItem("notas", JSON.stringify(notas));
     }
 
-    // Mostrar cada nota desse usuário
+    // Pega todas as notas do usuário logado
+    // Para cada nota chama a função mostrarNota()
     notas[usuario_logado.email].forEach(nota => {
         mostrarNota(nota);
     });

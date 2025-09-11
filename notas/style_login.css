@@ -5,95 +5,29 @@
     }
 
 body{
+    display: block;
+    min-height: 100vh;
+
+    /* Gradiente de fundo */
     background: #ffffff;
     background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(121, 150, 116, 0.83) 99%);
+}
+
+#main{
+    width: 80%;
+    height: 80%;
     display: flex;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-}
-
-#welcome span{
-    font-size: 25px;
-    cursor: default;
-}
-
-span{
-    cursor: pointer;
-    color: #799674;
-}
-
-#welcome h1{
-    margin-bottom: 50px;
-}
-
-
-
-#form_cadastro{
-    display: none;
-}
-
-form{
-    background-color: rgba(255, 18, 18, 0);
-    width: 450px;
-    height: 350px;
-    border-radius: 15px;
-
-    display: flex;
-    flex-direction: column; /* coloca os elementos em coluna */
-    justify-content: center; /* centraliza verticalmente */
-    align-items: center;  /* centraliza horizontalmente */
     
-}
+    /* Centalizar main */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-button{
-    border: none;
-    background-color: #3b3f4900;
-    margin: 10px;
-    cursor: pointer;
-}
-
-input{
-    display: block;
-    margin: 10px auto;
-    width: 300px;
-    height: 40px;
-    border-radius: 5px;
-    padding: 0 10px;
-    border-color: #3b3f491f;
-    border-style: solid;
-}
-
-#enviar{
-    width: 300px;
-    height: 60px;
-    border-radius: 200px;
-    border-style: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    background-color: #79967486;
-    /*background: #A1FFC5;
-    background: linear-gradient(180deg, rgba(161, 255, 197, 0.44) 0%, rgba(121, 150, 116, 0.82) 50%, rgba(161, 255, 197, 0.46) 100%);*/
-    /*border-color: #3b3f4948;*/
-    cursor: pointer;
-
-}
-
-#welcome{
-    width: 45vw;
-    height: 65vh;
-    margin: 0px;
-}
-
-.imagem {
-    display: block;
-    margin-bottom: 30px; /* espaço abaixo da imagem */
-}
-
-.credito {
-    display: block;
-    text-align: left;
+    /* Centralizar child */
+    align-items: center;
+    justify-content: center;
+    
 }
 
 h1, h2, h3, h4{
@@ -106,8 +40,129 @@ h2{
     font-size: 35px;
 }
 
+/* Início container div */
+
+#container{
+    width: 800px;
+    height: 500px;
+}
+
+#container h1{
+    margin-bottom: 30px;
+    font-size: 50px;
+    line-height: 40px;
+}
+
+#container span{
+    font-size: 25px;
+    cursor: default;
+}
+
+span{
+    cursor: pointer;
+    color: #799674;
+}
+
+#image {
+    width: 28vw;
+}
+
+/* Fim container div */
+
+/* Início Forms */
+
+form{
+    width: 450px;
+    height: 350px;
+
+    display: flex;
+    flex-direction: column; /* coloca os elementos em coluna */
+    justify-content: center; /* centraliza verticalmente */
+    align-items: center;  /* centraliza horizontalmente */
+    
+    border-radius: 50px;
+    border: 2px solid rgba(0, 0, 0, 0.089);
+    box-sizing: content-box;
+    padding: 80px 0px 80px 0px;
+}
+
+form h2{
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+form h3{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#form_cadastro{
+    display: none;
+}
+
+button{
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+input{
+    margin: 10px auto;
+    width: 300px;
+    min-width: 300px;
+    min-height: 40px;
+
+    display: block;
+    padding: 0 10px;
+
+    border-radius: 5px;
+    border-color: #3b3f491f;
+    border-style: solid;
+}
+
+/* Entrar / Criar conta */
+#enviar{
+    width: 300px;
+    height: 90px;
+    min-width: 300px;
+    min-height: 50px;
+
+    margin-top: 25px;
+    border-radius: 200px;
+    border-style: none;
+
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+
+    background-color: #79967486;
+    cursor: pointer;
+}
+
+p{
+    height: 60px;
+}
+
+/* Fim Forms */
+
+/* Início Footer */
+
+#credito {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    
+    background: #79967433;
+    color: white;
+    text-align: center;
+    padding: 6px;
+}
+
 a{
     color: #525253;
     text-decoration: none;
     font-size: 13px;
 }
+
+/* Fim Footer */

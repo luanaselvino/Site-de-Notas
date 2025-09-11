@@ -100,6 +100,6 @@ link_cadastro.addEventListener("click", function() {
 
 });
 
-function voltarLogin(){
-    window.location.href = "login.html"
-}
+document.getElementById("voltar_login").addEventListener("click", function() {
+    window.location.href = "login.html";
+});
