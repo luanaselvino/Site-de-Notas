@@ -30,6 +30,7 @@ document.getElementById("salvar").addEventListener("click", function() {
 
         // Criar objeto da nova nota
         var novaNota = {
+            id: Date.now(),  // cria um id único
             titulo: titulo || "Sem título",
             conteudo: conteudo
         };
@@ -55,7 +56,43 @@ function mostrarNota(nota){
     box.innerHTML = `
         <div class="titulo">${nota.titulo}</div>
         <div class="conteudo">${nota.conteudo}</div>
+
+        <div class="editor">
+            <button class="excluir_nota">
+                <i class="fa-solid fa-eraser"></i>
+            </button>
+
+            <button class="editar_nota">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+        </div>
     `;
+
+    // Apagar notas //
+    // adiciona evento em cada um
+    var excluir_nota = box.querySelector(".excluir_nota");
+    excluir_nota.addEventListener("click", function() {
+        
+        var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+        var notas = JSON.parse(localStorage.getItem("notas")) || {};
+
+        // Filtra a nota clicada
+        // notas[usuario_logado.email] → é a lista de todas as notas do usuário
+        // .filter é uma função de array que cria um novo array com apenas os itens que passam no teste, cada item da lista (n) será testado
+        // => indica uma função curta que retorna true ou false
+        // Se retornar true, a nota fica na lista. Se retornar false, a nota é removida.
+        // verifica se a nota atual n é exatamente igual à nota que queremos apagar
+        // só mantém na lista as notas que NÃO são iguais à nota clicada
+        notas[usuario_logado.email] = notas[usuario_logado.email].filter(n => 
+            !(n.titulo === nota.titulo && n.conteudo === nota.conteudo)
+        );
+
+        // salva de volta no localStorage
+        localStorage.setItem("notas", JSON.stringify(notas));
+        
+        box.remove(); // remove da tela
+    });
+
     document.getElementById("main").appendChild(box);
 }
 
@@ -63,6 +100,8 @@ function mostrarNota(nota){
 document.getElementById("add_button").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "block";
 });
+    
+// Editar notas
 
 // Abrir nav
 document.getElementById("open_nav").addEventListener("click", function() {
@@ -96,13 +135,32 @@ deslogar.addEventListener("click", function(event){
 });
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
-window.onload = function(){
+window.onload = function() {
     var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
     var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
     if (!notas[usuario_logado.email]) {
         notas[usuario_logado.email] = [];
         localStorage.setItem("notas", JSON.stringify(notas));
+    }
+
+    // Flag para verificar se é o primeiro acesso
+    var primeiroAcesso = localStorage.getItem("primeiroAcesso_" + usuario_logado.email);
+
+    if (!primeiroAcesso) {
+        // Cria nota inicial
+        var notaInicial = {
+            id: Date.now(),  // id único
+            titulo: "Bem-vindo(a)!",
+            conteudo: "Esta é sua primeira nota. Você pode editá-la ou apagar quando quiser."
+        }
+
+        // Adiciona ao storage
+        notas[usuario_logado.email].push(notaInicial);
+        localStorage.setItem("notas", JSON.stringify(notas));
+
+        // Marca que já teve o primeiro acesso
+        localStorage.setItem("primeiroAcesso_" + usuario_logado.email, "true");
     }
 
     // Pega todas as notas do usuário logado

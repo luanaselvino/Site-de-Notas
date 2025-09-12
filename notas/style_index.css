@@ -225,6 +225,7 @@ body{
 }
 
 .conteudo {
+    height: 150px;
     font: 12px Arial, sans-serif;
     /* Display do texto */
     display: -webkit-box;
@@ -241,6 +242,20 @@ body{
     overflow-wrap: break-word; 
     word-wrap: break-word;
     hyphens: auto; /* inserir hífens ao quebrar palavras */
+}
+
+.editor {
+    margin-top: 10px;
+    background-color: goldenrod;
+    border: none;
+}
+
+.excluir_nota, .editar_nota {
+    background: none;
+    border: none;
+    color: #4246428c;
+    cursor: pointer;
+    float:  right;
 }
 
 /* Fim grid de notas */
