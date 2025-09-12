@@ -10,7 +10,7 @@ body{
 
     /* Gradiente de fundo */
     background: #ffffff;
-    background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(121, 150, 116, 0.83) 99%);
+    background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
 }
 
 #main{
@@ -152,7 +152,7 @@ p{
     bottom: 0;
     left: 0;
     
-    background: #79967433;
+    background: #53535333;
     color: white;
     text-align: center;
     padding: 6px;

@@ -6,8 +6,99 @@
 body{
     margin: 0;
     padding: 0;
-    background: #ffffff; 
+    /* Gradiente de fundo */
+    background: #ffffff;
+    background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
+
 }
+/* Início top-nav */
+#top-nav {
+    height: 40px;
+    width: 100vw;
+
+    display: flex;
+    position: fixed;
+
+    padding: 10px;
+    background-color: #799674;
+    
+}
+
+#top-nav h3 {
+    height: 40px;
+    margin-left: 20px;
+    margin-right: 200px;
+    color: #ffffff;
+}
+
+#top-nav h4 {
+    height: 40px;
+    margin-right: 10px;
+    color: #394636;
+}
+
+#buscar {
+    height: 27px;
+    width: 27px;
+    margin-top: 15px;
+
+    border: none;
+    border-radius: 15px 0 0 15px;
+    background-color: #39463673;
+    cursor: pointer;
+}
+
+#pesquisa {
+    height: 25px;
+    width: 250px;
+    
+    margin-top: 15px;
+    margin-right: 10px;
+
+    border: none;
+    border-radius: 0 15px 15px 0;
+}
+
+#filtrar {
+    height: 27px;
+    width: 27px;
+    margin-top: 15px;
+
+    padding: auto;
+    border: 2px solid #394636;
+    border-radius: 10px;
+    background: none;
+    cursor: pointer;
+    color: #394636;
+
+    
+}
+
+#open_nav {
+    /* Tamanho da div */
+    width: 40px;
+    height: 40px;
+
+    /* Ajustar posição */
+    margin-left: auto;
+    margin-right: 20px;
+    display: none;
+    cursor: pointer;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center; /* centraliza verticalmente */
+
+    border-radius: 10px;
+    border: 0;
+    
+    background-color: #39463673;
+}
+
+#open_nav i { /* ícone do button */
+    font-size: 25px;
+    color: #799674;
+}
+
+/* Fim top-nav */
 
 /* Início inserir_nota */
 
@@ -139,14 +230,14 @@ body{
 #main {
     /* Tamanho da div */
     width: 65vw;
-    height: 80vh;
+    height: 70vh;
     
     /* Ajustar posição */
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-
     margin: auto;
+    margin-left: 15%;
     padding: 25px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -174,7 +265,7 @@ body{
     /* Ajustar posição */
     position: absolute;
     bottom: 10vh;
-    right: 27vw;
+    right: 23vw;
 
     border-radius: 100px;
     cursor: pointer;
@@ -262,31 +353,10 @@ body{
 
 /* Início Navbar */
 
-#open_nav {
-    /* Tamanho da div */
-    width: 40px;
-    height: 40px;
-
-    /* Ajustar posição */
-    display: none;
-    margin: 20px;
-    cursor: pointer;
-    justify-content: center; /* centraliza horizontalmente */
-    align-items: center; /* centraliza verticalmente */
-
-    border-radius: 10px;
-    border: 0;
-    background-color: rgba(0, 0, 0, 0.267);
-}
-
-#open_nav i { /* ícone do button */
-    font-size: 25px;
-    color: #fff;
-}
-
 #Nav {
    /* Tamanho da div */
     width: 200px;
+    height: 450px;
 
     /* Fonte */
     font: bold 15px Inter, sans-serif;
@@ -306,14 +376,16 @@ body{
 
     padding: 30px;
     border-radius: 25px;
-    background-color: #799674;
+    background-color: #fdc699;
+}
+
+#linha {
+    display: flex;
 }
 
 /* Button */
 #close_nav{
     /* Tamanho da div */
-    width: 35px;
-    height: 35px;
 
     /* Ajustar posição */
     margin-left: auto; /* empurrar para direita */
@@ -325,7 +397,6 @@ body{
 
 #list {
     display: block;
-    margin-top: 30px;
     list-style: none;
     letter-spacing: 1px;
 }
@@ -336,7 +407,7 @@ body{
 
 #bottom_navbar {
     position: fixed;
-    bottom: 20px;
+    bottom: 145px;
 }
 
 #sair{

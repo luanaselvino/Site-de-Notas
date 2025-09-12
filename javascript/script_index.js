@@ -107,7 +107,7 @@ document.getElementById("add_button").addEventListener("click", function() {
 document.getElementById("open_nav").addEventListener("click", function() {
     document.getElementById("Nav").style.display = "flex";
     document.getElementById("open_nav").style.display = 'none';
-    document.getElementById("add_button").style.right = "27vw";
+    document.getElementById("add_button").style.right = "23vw";
     document.getElementById("inserir_nota").style.right = "330px";
 });
 
