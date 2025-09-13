@@ -6,6 +6,8 @@
 body{
     margin: 0;
     padding: 0;
+    overflow-x: hidden; 
+    overflow-y: hidden;
     /* Gradiente de fundo */
     background: #ffffff;
     background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
@@ -15,13 +17,8 @@ body{
 #top-nav {
     height: 40px;
     width: 100vw;
-
     display: flex;
-    position: fixed;
-
-    padding: 10px;
     background-color: #799674;
-    
 }
 
 #top-nav h3 {
@@ -357,13 +354,14 @@ body{
    /* Tamanho da div */
     width: 200px;
     height: 450px;
+    overflow-y: hidden;
 
     /* Fonte */
     font: bold 15px Inter, sans-serif;
     color: #0000006e;
 
     /* Ajustar posição */
-    margin: 10px;
+    margin: 0 0 0 10px;
     display: flex;
     flex-direction: column; /* organiza embaixo */
     gap: 10px;
@@ -375,8 +373,8 @@ body{
     transition: all 0.5s;
 
     padding: 30px;
-    border-radius: 25px;
-    background-color: #fdc699;
+    border-radius: 0 0 0 25px;
+    background-color: #799674;
 }
 
 #linha {
@@ -406,8 +404,7 @@ body{
 }
 
 #bottom_navbar {
-    position: fixed;
-    bottom: 145px;
+    margin-top: 180px;
 }
 
 #sair{
