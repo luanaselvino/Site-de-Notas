@@ -138,10 +138,10 @@ deslogar.addEventListener("click", function(event){
 window.onload = function() {
 
     var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+
     // Se não tem usuário logado → volta pro login
     if (!usuario_logado || usuario_logado.email === "visitante") {
         window.location.href = "login.html";
-        return;
     }
 
     var notas = JSON.parse(localStorage.getItem("notas")) || {};
