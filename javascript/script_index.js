@@ -136,7 +136,14 @@ deslogar.addEventListener("click", function(event){
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload = function() {
+
     var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+    if (!usuario_logado) {
+        // Se não tem usuário logado → volta pro login
+        window.location.href = "login.html";
+        return;
+    }
+
     var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
     if (!notas[usuario_logado.email]) {
