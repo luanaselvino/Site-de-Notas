@@ -1,3 +1,8 @@
+// Função de teste apenas deve ser removida
+document.getElementById("teste").addEventListener("click", function() {
+    window.location.href = "home.html";
+})
+
 //add API key sheetDB -- mudar para .env !!
 
 const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/un4cuz49q5gu6';
@@ -60,7 +65,7 @@ form_cadastro.addEventListener("submit", function(event){
 
 // Voltar para Login
 document.getElementById("voltar_login").addEventListener("click", function() {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 });
 
 // Entrar com conta existente
@@ -86,7 +91,7 @@ form_login.addEventListener("submit", function(event) {
         // Guardar info de usuário logado
         localStorage.setItem("usuario_logado", JSON.stringify(user));
 
-        window.location.href = "index.html";
+        window.location.href = "home.html";
     } else {
         alert("Usuário ou senha incorretos");
     }
@@ -108,7 +113,7 @@ entrar_visitante.addEventListener("click", function(event) {
     // Logar a conta de visitante
     localStorage.setItem("usuario_logado", JSON.stringify(visitante));
 
-    window.location.href = "index.html";
+    window.location.href = "home.html";
 });
 */
 

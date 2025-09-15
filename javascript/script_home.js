@@ -126,7 +126,7 @@ deslogar.addEventListener("click", function(event){
     localStorage.removeItem("usuario_logado");
 
     // Redireciona para login
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 
 });
 
@@ -135,10 +135,10 @@ window.onload = function() {
     var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
 
     // Se não tem usuário logado → volta pro login
-    if (!usuario_logado) {
-        window.location.href = "login.html";
+    /*if (!usuario_logado) {
+        window.location.href = "index.html";
         return; // impede que o resto do código rode
-    }
+    }*/
 
     var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
