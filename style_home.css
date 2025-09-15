@@ -1,0 +1,458 @@
+
+/*:root {
+
+}*/
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+    overflow-y: hidden;
+    /* Gradiente de fundo */
+    background: #ffffff;
+    background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
+
+}
+/* Início top-nav */
+#top-nav {
+    height: 60px;
+    width: 100vw;
+    display: flex;
+    background-color: #799674;
+}
+
+#top-nav h3 {
+    height: 40px;
+    margin-left: 20px;
+    margin-right: 150px;
+
+    font: bold 20px Arial, sans-serif;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+#ferramentas_busca {
+    position: fixed;
+    display: flex;
+    margin: auto;
+    right: 540px;
+}
+
+#ferramentas_busca h4 {
+    height: 40px;
+    margin-right: 10px;
+    color: #394636;
+}
+
+#buscar {
+    height: 27px;
+    width: 27px;
+    margin-top: 17px;
+
+    border: none;
+    border-radius: 15px 0 0 15px;
+    background-color: #ffffff;
+    color: #39463673;
+    cursor: pointer;
+}
+
+#pesquisa {
+    height: 25px;
+    width: 250px;
+    margin-top: 17px;
+    margin-right: 10px;
+
+    border: none;
+    border-radius: 0 15px 15px 0;
+}
+
+#filtrar {
+    height: 27px;
+    width: 27px;
+    margin-top: 17px;
+
+    padding: auto;
+    border: 2px solid #394636;
+    border-radius: 10px;
+    background: none;
+    cursor: pointer;
+    color: #394636;
+
+    
+}
+
+#open_nav {
+    /* Tamanho da div */
+    width: 40px;
+    height: 40px;
+
+    /* Ajustar posição */
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 10px;
+    display: none;
+    cursor: pointer;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center; /* centraliza verticalmente */
+
+    border-radius: 10px;
+    border: 0;
+    
+    background: none;
+}
+
+#open_nav i { /* ícone do button */
+    font-size: 25px;
+    color: #ffffff;
+}
+
+/* Fim top-nav */
+
+/* Início inserir_nota */
+
+#inserir_nota {
+    /* Sobrepor a div sobre os elementos da tela */
+    position: absolute;
+    display: none; /* deixar div invísivel */
+
+    /* Tamanho da div */
+    width: 650px;
+    height: 400px;
+
+    /* Ajustar posição */
+    
+    margin: auto;
+    margin-inline: 300px;
+    left: 1%;
+    right: 330px;
+    top: 1%;
+    bottom: 1%;
+    z-index: 100;
+
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 1px 1px 10px 0px rgb(94, 94, 94);
+    transition-duration: 0.6s;
+}
+
+#close_nota, #titulo, #conteudo, #salvar {
+    display: block;
+}
+
+#close_nota {
+    /* Tamanho da div */
+    width: 8%;
+    text-align: right;
+    
+    /* Fonte */
+    font: bold 60px Arial, sans-serif;
+    color: rgba(0, 0, 0, 0.295);
+
+    /* Ajustar posição */
+    margin-top: 10px;
+    margin-right: 72px;
+    margin-left: auto; /* joga para a direita */
+    /*float: right; /* empurra a div para a direita */
+    
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#titulo:focus, #conteudo:focus{
+    outline: none;
+    color: #424642;
+}
+
+#titulo{
+    /* Tamanho da div */
+    width: 80%;
+    height: 55px;
+
+    /* Fonte */
+    font: bold 50px Arial, sans-serif;
+    color:rgb(94, 94, 94);
+
+    padding: 15px;
+    box-sizing: border-box;
+
+    /* Remover bordas*/
+    border-style: none;
+
+    /* Ajustar posição */
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#conteudo{
+    /* Tamanho da div */
+    width: 80%;
+    height: 40%;
+    resize: none; /* desativa redimeensionamento */
+
+    /* Fonte */
+    font-size: 18px;
+
+    /* Bordas */
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.295);;
+    
+    /* Ajustar posição */
+    padding: 15px;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+
+#salvar{
+    width: 80px;
+
+    /* Fontes */
+    color: rgba(0, 0, 0, 0.568);
+    font: bold 15px Arial, sans-serif;
+    text-align: right;
+
+    /* Ajustar posição */
+    margin: 30px 50px 15px 0; /* top, right, bottom, left*/
+    margin-left: auto; /* joga para a direita */
+    margin-right: 72px;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+/* Fim inserir_nota */
+
+/* Início grid de notas */
+
+#corpo {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    background-color: #e9e9e95d;
+}
+
+#main {
+    /* Tamanho da div */
+    width: 65vw;
+    height: 70vh;
+    
+    /* Ajustar posição */
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: auto;
+    margin-bottom: 16vh;
+    margin-left: 15%;
+    padding: 25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* Bordas */
+    border: 1px solid rgba(100, 100, 100, 0.068);
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px 0px #bdbdbd65;
+}
+
+::-webkit-scrollbar { /* área de scroll */
+    width: 15px;
+}
+::-webkit-scrollbar-thumb { /* scroll */
+    background: #e2e2e2;
+    
+    border-radius: 20px 20px 20px 20px;
+    border: 2px solid  rgba(255, 255, 255, 0.712);
+}
+
+#add_button {
+    /* Tamanho da div */
+    width: 80px;
+    height: 80px;
+
+    /* Ajustar posição */
+    position: absolute;
+    bottom: 12vh;
+    right: 19vw;
+
+    border-radius: 100px;
+    cursor: pointer;
+    border-color: #dde3ee;
+    background-color: rgb(255, 255, 255);
+}
+
+#add_button i{ /* ícone do button */
+    color: #7b828f;
+}
+
+/* Notas */
+.box {
+    /* Tamanho da div */
+    width: 130px;
+    height: 180px;
+
+    /* Ajustar posição */
+    margin-inline: 20px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.068);
+
+    font-family: var(--font);
+    padding: 18px;
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0px 0px 5px 0px #bdbdbd65;
+}
+
+.titulo{
+    /* Ajustar posição */
+    margin-top: -5px;
+    margin-bottom: 10px;
+
+    /* Fonte */
+    font: bold 15px Arial, sans-serif;
+    color: #424642;
+    text-align: center;
+
+    /* Formatação do texto */
+    white-space: nowrap; /* não quebra linha */
+    overflow: hidden; /* limita o texto */
+    text-overflow: ellipsis; /* adiciona "..." */
+    max-width: 100%; /* limite */
+    display: block;
+}
+
+.conteudo {
+    height: 150px;
+    font: 12px Arial, sans-serif;
+    /* Display do texto */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7; /* número de linhas */
+    max-height: calc(1.6em * 7);/* fallback para navegadores sem -webkit-line-clamp*/
+    line-height: 1.6;
+
+    overflow: hidden; /* limita o texto */
+    text-overflow: ellipsis; /* adiciona "..." */
+    white-space: normal; /* não manter espaços extras */
+    
+    /* Permitir quebrar palavras longas no meio */
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
+    hyphens: auto; /* inserir hífens ao quebrar palavras */
+}
+
+.editor {
+    margin-top: 10px;
+    background-color: goldenrod;
+    border: none;
+}
+
+.excluir_nota, .editar_nota {
+    background: none;
+    border: none;
+    color: #4246428c;
+    cursor: pointer;
+    float:  right;
+}
+
+/* Fim grid de notas */
+
+/* Início Navbar */
+
+#Nav {
+   /* Tamanho da div */
+    width: 200px;
+    height: 450px;
+
+    /* Fonte */
+    font: bold 15px Inter, sans-serif;
+    color: #ffffffe5;
+
+    /* Ajustar posição */
+    margin: 0 0 0 10px;
+    position: absolute;
+    display: flex;
+    flex-direction: column; /* organiza embaixo */
+    gap: 10px;
+
+    z-index: 9; /* ordem de empilhamento */
+    right: 0;
+    top: 0;
+    transition: all 0.5s;
+
+    padding: 0 30px 30px 30px;
+    border-radius: 25px 0px 25px 25px;
+    background-color: #60815a;
+}
+
+#linha {
+    display: flex;
+}
+
+/* Button */
+#close_nav {
+    margin-left: auto; /* empurrar para direita */
+    color: #ffffffe5;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#list {
+    display: block;
+    list-style: none;
+    letter-spacing: 1px;
+}
+
+#list li {
+    margin-top: 25px;
+}
+
+#bottom_navbar {
+    margin-top: 180px;
+}
+
+#sair{
+    display: block;
+    
+    padding: 0; /* remove espaçamento interno */
+    margin: 0; /* remove espaçamento externo */
+    margin-bottom: 20px;
+
+    background: none;  /* remove fundo (se quiser) */
+    border: none;
+    cursor: pointer;
+
+    /* Fonte */
+    font: bold 15px Inter, sans-serif;
+    color: #ffffffe5;
+}
+
+/* Fim Navbar */
+
+/* Início Footer 
+
+#credito {
+    width: 100%;
+    height: 3%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    background: #bebebe46;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+#credito a{
+    color: #525253;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+Fim Footer */

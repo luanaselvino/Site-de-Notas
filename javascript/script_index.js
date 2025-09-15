@@ -1,178 +1,176 @@
-// Fechar editor de notas
-document.getElementById("close_nota").addEventListener("click", function() {
-    document.getElementById("inserir_nota").style.display = "none";
+//add API key sheetDB -- mudar para .env !!
 
-    // Limpar os inputs
-    document.getElementById("titulo").value = "";
-    document.getElementById("conteudo").value = "";
+const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/un4cuz49q5gu6';
+
+// Abrir form de cadastro
+var link_cadastro = document.getElementById("irParaCadastro");
+
+link_cadastro.addEventListener("click", function() {
+
+    document.getElementById("form_cadastro").style.display="flex";
+    document.getElementById("form_login").style.display="none";
+
 });
 
-// Salvar notas criadas com localStorage
-document.getElementById("salvar").addEventListener("click", function() {
-    document.getElementById("inserir_nota").style.display = "none";
-    
-    var titulo = document.getElementById("titulo").value;
-    var conteudo = document.getElementById("conteudo").value;
+// Realizar cadastro
+var form_cadastro = document.getElementById("form_cadastro");
+var mensagem = document.getElementById("mensagem");
 
-    if (conteudo !== "") {
-        // Recupera usuário logado
-        // JSON.parse() transforma a informação que estava como texto de volta em objeto de JS
-        var usuario_logado = JSON.parse(localStorage.getItem ("usuario_logado"));
-
-        // Recupera TODAS as notas já salvas ou cria um objeto vazio {}
-        var notas = JSON.parse(localStorage.getItem("notas")) || {};
-
-        // Verifica se o usuário ainda não tem uma lista de notas
-        //Se não tiver, cria uma lista vazia
-        if (!notas[usuario_logado.email]) {
-            notas[usuario_logado.email] = [];
-        }
-
-        // Criar objeto da nova nota
-        var novaNota = {
-            id: Date.now(),  // cria um id único
-            titulo: titulo || "Sem título",
-            conteudo: conteudo
-        };
-
-        // Pegamos a lista de notas do usuário atual (notas[usuario_logado.email]) e colocamos a nova nota dentro dela.
-        notas[usuario_logado.email].push(novaNota);
-
-        // Salvar de volta no localStorage
-        localStorage.setItem("notas", JSON.stringify(notas));
-
-        // Mostrar na tela // Chamar função mostrarNota()
-        mostrarNota(novaNota);
-    }
-
-    // Limpar os inputs
-    document.getElementById("titulo").value = "";
-    document.getElementById("conteudo").value = "";
-});
-
-function mostrarNota(nota){
-    const box = document.createElement('div');
-    box.classList.add('box');
-    box.innerHTML = `
-        <div class="titulo">${nota.titulo}</div>
-        <div class="conteudo">${nota.conteudo}</div>
-
-        <div class="editor">
-            <button class="excluir_nota">
-                <i class="fa-solid fa-eraser"></i>
-            </button>
-
-            <button class="editar_nota">
-                <i class="fa-solid fa-pen-to-square"></i>
-            </button>
-        </div>
-    `;
-
-    // Apagar notas //
-    // adiciona evento em cada um
-    var excluir_nota = box.querySelector(".excluir_nota");
-    excluir_nota.addEventListener("click", function() {
-        
-        var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-        var notas = JSON.parse(localStorage.getItem("notas")) || {};
-
-        // Filtra a nota clicada
-        // notas[usuario_logado.email] → é a lista de todas as notas do usuário
-        // .filter é uma função de array que cria um novo array com apenas os itens que passam no teste, cada item da lista (n) será testado
-        // => indica uma função curta que retorna true ou false
-        // Se retornar true, a nota fica na lista. Se retornar false, a nota é removida.
-        // verifica se a nota atual n é exatamente igual à nota que queremos apagar
-        // só mantém na lista as notas que NÃO são iguais à nota clicada
-        notas[usuario_logado.email] = notas[usuario_logado.email].filter(n => 
-            !(n.titulo === nota.titulo && n.conteudo === nota.conteudo)
-        );
-
-        // salva de volta no localStorage
-        localStorage.setItem("notas", JSON.stringify(notas));
-        
-        box.remove(); // remove da tela
-    });
-
-    document.getElementById("main").appendChild(box);
-}
-
-// Abrir div="inserir_nota"
-document.getElementById("add_button").addEventListener("click", function() {
-    document.getElementById("inserir_nota").style.display = "block";
-});
-    
-// Editar notas
-
-// Abrir nav
-document.getElementById("open_nav").addEventListener("click", function() {
-    document.getElementById("Nav").style.display = "flex";
-    document.getElementById("open_nav").style.display = 'none';
-    document.getElementById("add_button").style.right = "23vw";
-    document.getElementById("inserir_nota").style.right = "330px";
-});
-
-// Fechar nav
-document.getElementById("close_nav").addEventListener("click", function() {
-    document.getElementById("Nav").style.display = "none"
-    document.getElementById("open_nav").style.display = 'flex'
-    document.getElementById("add_button").style.right = "20vw";
-    document.getElementById("inserir_nota").style.right = "80px";
-});
-
-// Deslogar usuário
-var deslogar = document.getElementById("sair");
-
-deslogar.addEventListener("click", function(event){
+form_cadastro.addEventListener("submit", function(event){
 
     event.preventDefault(); // evita recarregar a página
 
-    // Remove usuário logado do localStorage
-    localStorage.removeItem("usuario_logado");
+    var nome_cadastro = document.getElementById("nome_cadastro").value;
+    var email_cadastro = document.getElementById("email_cadastro").value;
+    var senha_cadastro = document.getElementById("senha_cadastro").value;
 
-    // Redireciona para login
+    var usuario = {
+        email: email_cadastro,
+        senha: senha_cadastro
+    };
+
+    //criar usuario no banco do SheetDB
+    salvarUsuario(nome_cadastro, email_cadastro, senha_cadastro, "admin", "grupoTeste");
+
+    // Se existir, pega a lista no localStorage
+    // Se não existir, cria uma lista vazia []
+    var users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Verificar se já existe usuário com mesmo email
+    var existe = users.find(u => u.email === email_cadastro);
+    if (existe) {
+        mensagem.textContent = "Esse email já está cadastrado!";
+        mensagem.style.color = "red";
+        return;
+    }
+
+    // coloca var "usuario" dentro da lista "users"
+    users.push(usuario);
+
+    // Salvar lista atualizada
+    // localStorage.setItem("nome_da_chave", "valor_que_quer_guardar");
+    localStorage.setItem("users", JSON.stringify(users));
+
+    mensagem.textContent = "Conta criada com sucesso";
+    mensagem.style.color = "green";
+
+    // Limpar formulário
+    form_cadastro.reset();
+});
+
+// Voltar para Login
+document.getElementById("voltar_login").addEventListener("click", function() {
     window.location.href = "login.html";
+});
+
+// Entrar com conta existente
+var form_login = document.getElementById("form_login");
+
+form_login.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    var email_login = document.getElementById("email_login").value;
+    var senha_login = document.getElementById("senha_login").value;
+    buscarUsuario();
+    
+    // Recuperar usuários salvos no localStorage
+    var users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Verificar se usuário existe
+    var user = users.find(u => u.email === email_login && u.senha === senha_login);
+
+    if (user) {
+        alert("Login realizado com sucesso!");
+
+        // Guardar info de usuário logado
+        localStorage.setItem("usuario_logado", JSON.stringify(user));
+
+        window.location.href = "index.html";
+    } else {
+        alert("Usuário ou senha incorretos");
+    }
 
 });
 
-// window.onload = function(){}; a função só é executada quando a página termina de carregar
-window.onload = function() {
+// Entrar como visitante
+/*var entrar_visitante = document.getElementById("entrar_visitante");
 
-    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+entrar_visitante.addEventListener("click", function(event) {
+    event.preventDefault();
 
-    // Se não tem usuário logado → volta pro login
-    if (!usuario_logado || usuario_logado.email === "visitante") {
-        window.location.href = "login.html";
+    // Cria um "usuário" especial de visitante
+    var visitante = {
+        email: "visitante",
+        senha: null
+    };
+
+    // Logar a conta de visitante
+    localStorage.setItem("usuario_logado", JSON.stringify(visitante));
+
+    window.location.href = "index.html";
+});
+*/
+
+// Gabriel criou function Buscar Usuarios !!
+async function buscarUsuario() {
+    try {
+        const response = await fetch(SHEETDB_API_URL);
+        if (!response.ok) {
+            throw new Error("Erro na requisição: " + response.status);
+        }
+        const data = await response.json();
+        console.log(JSON.stringify(data, null, 2)); 
+        return data;       
+    } catch (error) {
+        console.error("Erro ao buscar usuário:", error);
+        return null;
     }
+}
 
-    var notas = JSON.parse(localStorage.getItem("notas")) || {};
+// Gabriel criou function Salvar Usuarios !!
+async function salvarUsuario(nome, email, senha, perfil, grupo) {
 
-    if (!notas[usuario_logado.email]) {
-        notas[usuario_logado.email] = [];
-        localStorage.setItem("notas", JSON.stringify(notas));
-    }
+    try {
+    /// Buscar todos os usuários antes de salvar
+        const usuarios = await buscarUsuario();
 
-    // Flag para verificar se é o primeiro acesso
-    var primeiroAcesso = localStorage.getItem("primeiroAcesso_" + usuario_logado.email);
-
-    if (!primeiroAcesso) {
-        // Cria nota inicial
-        var notaInicial = {
-            id: Date.now(),  // id único
-            titulo: "Bem-vindo(a)!",
-            conteudo: "Esta é sua primeira nota. Você pode editá-la ou apagar quando quiser."
+        // Pegar o maior Id existente
+        let ultimoId = 0;
+        if (usuarios.length > 0) {
+            ultimoId = Math.max(...usuarios.map(u => Number(u.Id) || 0));
         }
 
-        // Adiciona ao storage
-        notas[usuario_logado.email].push(notaInicial);
-        localStorage.setItem("notas", JSON.stringify(notas));
+        let proximoId = ultimoId + 1;
 
-        // Marca que já teve o primeiro acesso
-        localStorage.setItem("primeiroAcesso_" + usuario_logado.email, "true");
+        const response = await fetch(SHEETDB_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                data: [
+                    {
+                        Id: proximoId + 1,
+                        Nome: nome,
+                        Email: email,
+                        Senha: senha,
+                        Perfil: perfil,
+                        Grupo: grupo
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro ao salvar: " + response.status);
+        }
+
+        const data = await response.json();
+        console.log("Usuário salvo com sucesso:", JSON.stringify(data, null, 2));
+        return data;
+    } catch (error) {
+        console.error("Erro ao salvar usuário:", error);
+        return null;
     }
-
-    // Pega todas as notas do usuário logado
-    // Para cada nota chama a função mostrarNota()
-    notas[usuario_logado.email].forEach(nota => {
-        mostrarNota(nota);
-    });
-};
+}

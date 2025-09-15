@@ -1,84 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <link rel="stylesheet" href="style_index.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Link de ícones (fontawesome.com) -->
-    <title>Notas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"> <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> <!-- Link de ícones (fontawesome.com) -->
+    <link rel="stylesheet" href="style_index.css">
+    <title>Login</title>
 </head>
 
 <body>
+    <div id="main">
 
-    <!-- Ferramentas de busca -->
-    <div id="top-nav">
+        <!-- container visual  -->
+        <div id="container">
 
-        <h3>NotesSpace</h3>
-        <h4>Buscar:</h4>
+            <h1>Bem-vindo(a)!<br><span>Suas IDEIAS estão esperando por você.</span></h1>
+            <img src="./login_image.png" alt="" id="image">
 
-        <button id="buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <input type="text" id="pesquisa" placeholder="Buscar notas ou usuários">
-
-        <button id="filtrar"><i class="fa-solid fa-filter"></i></button>
-
-        <!-- Abrir nav -->
-        <button id="open_nav">
-            <i class="fa-solid fa-bars fa-2x"></i>
-        </button>
-
-    </div>
-
-    <div id="inserir_nota">
-
-        <button id="close_nota">&times;</button>
-
-        <input type="text" id="titulo" placeholder="Título">
-        <textarea id="conteudo" placeholder="Comece a escrever..."></textarea>
-        
-        <button id="salvar">SALVAR</button>
-
-    </div>
-
-    <div id="corpo">
-
-        <div id="main"><!-- Espaço para notas --></div>
-
-        <!-- Button para abrir div="inserir_nota" -->
-        <button id="add_button">
-            <i class="fa-solid fa-plus fa-2x"></i>
-        </button>
-
-        <div id="Nav">
-
-            <div id="linha">
-                <h2>Preferências</h2>
-                <!-- Fechar nav -->
-                <button id="close_nav">
-                    <i class="fa-regular fa-circle-xmark fa-2x" style="color: #0000006e;"></i>
-                </button>
-            </div>
-
-            <div id="list">
-
-                <div id="top_navbar">
-                    <li>(Nome do Usuário)</li>
-                    <li>(Tipo Perfil)</li>
-                    <li>Pessoas</li>
-                </div>
-
-                <div id="bottom_navbar">
-                    <li>Trocar Senha</li>
-                    <li><button id="sair">Sair</button></li>
-                </div>
-
-            </div>
         </div>
+
+        <form id="form_login">
+
+            <h2>Faça Login!</h2>
+
+            <input type="text" placeholder="Login" id="email_login">
+            <input type="password" placeholder="Senha" id="senha_login">
+
+            <h3>Não tem uma conta? <span id="irParaCadastro">Cadastre-se</span></h3>
+
+            <!-- <h4><a href="#" id="entrar_visitante">Entrar como visitante</a></h4> -->
+
+            <input type="submit" value="Entrar" id="enviar">
+
+        </form>
+
+        <form id="form_cadastro">
+        
+            <button id="voltar_login"><i class="fa-regular fa-circle-left fa-spin fa-4x" style="color: #79967486;"></i></button>
+
+            <h2>Cadastre-se</h2>
+
+            <input type="text" placeholder="Digite seu nome de usuário" id="nome_cadastro" required>
+            <input type="text" placeholder="Digite um email" id="email_cadastro" required>
+            <input type="password" placeholder="Senha" id="senha_cadastro" required>
+
+            <input type="submit" value="Criar conta" id="enviar">
+            <p id="mensagem"></p>
+
+        </form>
+        
     </div>
 
-    <!-- <footer id="credito">
+    <footer id="credito">
         <a href="https://storyset.com/people" target="_blank" class="credito">People illustrations by Storyset</a>
-    </footer> -->
+    </footer>
 
     <script src="javascript/script_index.js"></script>
 </body>
