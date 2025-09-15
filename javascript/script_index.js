@@ -29,7 +29,7 @@ form_cadastro.addEventListener("submit", function(event){
         senha: senha_cadastro
     };
 
-    //criar usuario no banco do SheetDB
+    // criar usuario no banco do SheetDB !!
     salvarUsuario(nome_cadastro, email_cadastro, senha_cadastro, "admin", "grupoTeste");
 
     // Se existir, pega a lista no localStorage
@@ -113,7 +113,7 @@ entrar_visitante.addEventListener("click", function(event) {
 */
 
 // Gabriel criou function Buscar Usuarios !!
-async function buscarUsuario() {
+/*async function buscarUsuario() {
     try {
         const response = await fetch(SHEETDB_API_URL);
         if (!response.ok) {
@@ -126,7 +126,7 @@ async function buscarUsuario() {
         console.error("Erro ao buscar usuário:", error);
         return null;
     }
-}
+}*/
 
 // Gabriel criou function Salvar Usuarios !!
 async function salvarUsuario(nome, email, senha, perfil, grupo) {

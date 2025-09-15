@@ -369,7 +369,8 @@ body{
     height: 450px;
 
     /* Fonte */
-    font: bold 15px Inter, sans-serif;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
     color: #ffffffe5;
 
     /* Ajustar posição */
@@ -384,7 +385,7 @@ body{
     top: 0;
     transition: all 0.5s;
 
-    padding: 0 30px 30px 30px;
+    padding: 10px 30px 30px 30px;
     border-radius: 25px 0px 25px 25px;
     background-color: #60815a;
 }
@@ -406,6 +407,8 @@ body{
     display: block;
     list-style: none;
     letter-spacing: 1px;
+    font-size: 18px;
+    color: #00000091;
 }
 
 #list li {
@@ -413,7 +416,7 @@ body{
 }
 
 #bottom_navbar {
-    margin-top: 180px;
+    margin-top: 165px;
 }
 
 #sair{
@@ -421,15 +424,16 @@ body{
     
     padding: 0; /* remove espaçamento interno */
     margin: 0; /* remove espaçamento externo */
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 
     background: none;  /* remove fundo (se quiser) */
     border: none;
     cursor: pointer;
 
     /* Fonte */
-    font: bold 15px Inter, sans-serif;
-    color: #ffffffe5;
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    color: #00000091;
 }
 
 /* Fim Navbar */

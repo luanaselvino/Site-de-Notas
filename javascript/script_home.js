@@ -137,6 +137,7 @@ window.onload = function() {
     // Se não tem usuário logado → volta pro login
     if (!usuario_logado) {
         window.location.href = "login.html";
+        return; // impede que o resto do código rode
     }
 
     var notas = JSON.parse(localStorage.getItem("notas")) || {};
