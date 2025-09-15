@@ -1,10 +1,4 @@
-// Função de teste apenas deve ser removida
-document.getElementById("teste").addEventListener("click", function() {
-    window.location.href = "home.html";
-})
-
 //add API key sheetDB -- mudar para .env !!
-
 const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/un4cuz49q5gu6';
 
 // Abrir form de cadastro
@@ -77,7 +71,7 @@ form_login.addEventListener("submit", function(event) {
 
     var email_login = document.getElementById("email_login").value;
     var senha_login = document.getElementById("senha_login").value;
-    buscarUsuario();
+    buscarUsuario(); // !!
     
     // Recuperar usuários salvos no localStorage
     var users = JSON.parse(localStorage.getItem("users")) || [];
@@ -118,7 +112,7 @@ entrar_visitante.addEventListener("click", function(event) {
 */
 
 // Gabriel criou function Buscar Usuarios !!
-/*async function buscarUsuario() {
+async function buscarUsuario() {
     try {
         const response = await fetch(SHEETDB_API_URL);
         if (!response.ok) {
@@ -131,7 +125,7 @@ entrar_visitante.addEventListener("click", function(event) {
         console.error("Erro ao buscar usuário:", error);
         return null;
     }
-}*/
+}
 
 // Gabriel criou function Salvar Usuarios !!
 async function salvarUsuario(nome, email, senha, perfil, grupo) {

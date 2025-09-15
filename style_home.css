@@ -398,6 +398,7 @@ body{
 #close_nav {
     margin-left: auto; /* empurrar para direita */
     color: #ffffffe5;
+    font-size: 12px;
     background: none;
     border: none;
     cursor: pointer;
