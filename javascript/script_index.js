@@ -1,5 +1,5 @@
 //add API key sheetDB -> mudar para .env 
-const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/un4cuz49q5gu6';
+const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/un4cuz49q5gu6';
 
 // Abrir form de cadastro
 var link_cadastro = document.getElementById("irParaCadastro");
@@ -115,11 +115,11 @@ entrar_visitante.addEventListener("click", function(event) {
 // await fetch -> espera até a resposta chegar.
 async function buscarUsuario() {
     try {
-        const response = await fetch(SHEETDB_API_URL); // informações (status da entrega, se deu certo ou erro)
+        var response = await fetch(SHEETDB_USERS_API_URL); // informações (status da entrega, se deu certo ou erro)
         if (!response.ok) {
             throw new Error("Erro na requisição: " + response.status);
         }
-        const data = await response.json(); // os dados de verdade (que você precisava abrir)
+        var data = await response.json(); // os dados de verdade (que você precisava abrir)
         console.log(JSON.stringify(data, null, 2)); // facilitar leitura
         return data;       
     } catch (error) {
@@ -166,7 +166,7 @@ async function salvarUsuario(nome, email, senha, perfil, grupo) {
             throw new Error("Erro ao salvar: " + response.status);
         }
 
-        const data = await response.json();
+        var data = await response.json();
         console.log("Usuário salvo com sucesso:", JSON.stringify(data, null, 2));
         return data;
     } catch (error) {
