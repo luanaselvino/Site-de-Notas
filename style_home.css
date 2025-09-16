@@ -90,7 +90,7 @@ body{
     margin-left: auto;
     margin-right: 20px;
     margin-top: 10px;
-    display: none;
+    display: flex;
     cursor: pointer;
     justify-content: center; /* centraliza horizontalmente */
     align-items: center; /* centraliza verticalmente */
@@ -376,7 +376,7 @@ body{
     /* Ajustar posição */
     margin: 0 0 0 10px;
     position: absolute;
-    display: flex;
+    display: none;
     flex-direction: column; /* organiza embaixo */
     gap: 10px;
 
