@@ -1,6 +1,3 @@
-//add API key sheetDB 
-const SHEETDB_NOTES_API_URL = 'https://sheetdb.io/api/v1/i6iwwatljj0kh';
-
 // Fechar editor de notas
 document.getElementById("close_nota").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "none";
@@ -10,8 +7,8 @@ document.getElementById("close_nota").addEventListener("click", function() {
     document.getElementById("conteudo").value = "";
 });
 
-// Salvar notas criadas com SheetDB
-document.getElementById("salvar").addEventListener("click", async function() {
+// Salvar notas criadas com localStorage
+document.getElementById("salvar").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "none";
     
     var titulo = document.getElementById("titulo").value;
@@ -20,39 +17,37 @@ document.getElementById("salvar").addEventListener("click", async function() {
     if (conteudo !== "") {
         // Recupera usuário logado
         // JSON.parse() transforma a informação que estava como texto de volta em objeto de JS
-        try {
-            var usuario_logado = JSON.parse(localStorage.getItem ("usuario_logado"));
-            // Recupera TODAS as notas já salvas
-            const notas = await buscarNotas();
+        var usuario_logado = JSON.parse(localStorage.getItem ("usuario_logado"));
 
-            // Verifica se o usuário ainda não tem uma lista de notas
-            //Se não tiver, cria uma lista vazia
-            if (!notas[usuario_logado.email]) {
-                notas[usuario_logado.email] = [];
-            }
-            // Criar objeto da nova nota
-            var novaNota = {
-                titulo: titulo || "Sem título",
-                conteudo: conteudo
-            };
+        // Recupera TODAS as notas já salvas ou cria um objeto vazio {}
+        var notas = JSON.parse(localStorage.getItem("notas")) || {};
 
-            // Pegamos a lista de notas do usuário atual (notas[usuario_logado.email]) e colocamos a nova nota dentro dela.
-            notas[usuario_logado.email].push(novaNota);
-
-            // Salvar de volta no localStorage
-            localStorage.setItem("notas", JSON.stringify(notas));
-
-            // Mostrar na tela // Chamar função mostrarNota()
-            mostrarNota(novaNota);
-
-            // Limpar os inputs
-            document.getElementById("titulo").value = "";
-            document.getElementById("conteudo").value = "";
-        } catch (error) {
-            console.error("Erro ao salvar nota:", error);
-            return null;
+        // Verifica se o usuário ainda não tem uma lista de notas
+        //Se não tiver, cria uma lista vazia
+        if (!notas[usuario_logado.email]) {
+            notas[usuario_logado.email] = [];
         }
+
+        // Criar objeto da nova nota
+        var novaNota = {
+            id: Date.now(),  // cria um id único
+            titulo: titulo || "Sem título",
+            conteudo: conteudo
+        };
+
+        // Pegamos a lista de notas do usuário atual (notas[usuario_logado.email]) e colocamos a nova nota dentro dela.
+        notas[usuario_logado.email].push(novaNota);
+
+        // Salvar de volta no localStorage
+        localStorage.setItem("notas", JSON.stringify(notas));
+
+        // Mostrar na tela // Chamar função mostrarNota()
+        mostrarNota(novaNota);
     }
+
+    // Limpar os inputs
+    document.getElementById("titulo").value = "";
+    document.getElementById("conteudo").value = "";
 });
 
 function mostrarNota(nota){
@@ -76,32 +71,26 @@ function mostrarNota(nota){
     // Apagar notas //
     // adiciona evento em cada um
     var excluir_nota = box.querySelector(".excluir_nota");
-    excluir_nota.addEventListener("click", async function() {
-
+    excluir_nota.addEventListener("click", function() {
+        
         var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-        await excluirNota(usuario_logado.email, nota.titulo, nota.conteudo);
+        var notas = JSON.parse(localStorage.getItem("notas")) || {};
+
+        // Filtra a nota clicada
+        // notas[usuario_logado.email] → é a lista de todas as notas do usuário
+        // .filter é uma função de array que cria um novo array com apenas os itens que passam no teste, cada item da lista (n) será testado
+        // => indica uma função curta que retorna true ou false
+        // Se retornar true, a nota fica na lista. Se retornar false, a nota é removida.
+        // verifica se a nota atual n é exatamente igual à nota que queremos apagar
+        // só mantém na lista as notas que NÃO são iguais à nota clicada
+        notas[usuario_logado.email] = notas[usuario_logado.email].filter(n => 
+            !(n.titulo === nota.titulo && n.conteudo === nota.conteudo)
+        );
+
+        // salva de volta no localStorage
+        localStorage.setItem("notas", JSON.stringify(notas));
+        
         box.remove(); // remove da tela
-   
-        try {
-            const response = await fetch(`${SHEETDB_NOTES_API_URL}/Email/${email}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                query: [
-                { Email: email, Titulo: titulo, Conteudo: conteudo }
-                ]
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error("Erro ao excluir: " + response.status);
-            }
-
-            const data = await response.json();
-            console.log("Nota excluída:", data);
-        } catch (error) {
-            console.error("Erro ao excluir:", error);
-        }
     });
 
     document.getElementById("main").appendChild(box);
@@ -142,27 +131,21 @@ deslogar.addEventListener("click", function(event){
 });
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
-window.onload = async function() {
+window.onload = function() {
     var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
 
     // Se não tem usuário logado → volta pro login
-    if (!usuario_logado) {
+    /*if (!usuario_logado) {
         window.location.href = "index.html";
-        return;
+        return; // impede que o resto do código rode
+    }*/
+
+    var notas = JSON.parse(localStorage.getItem("notas")) || {};
+
+    if (!notas[usuario_logado.email]) {
+        notas[usuario_logado.email] = [];
+        localStorage.setItem("notas", JSON.stringify(notas));
     }
-
-    var notas = await buscarNotas(usuario_logado.email);
-
-    if (notas.length === 0) {
-        // Cria nota inicial
-        await salvarNota(usuario_logado.email, "Bem-vindo(a)!", "Esta é sua primeira nota.");
-    }
-
-    // Mostrar todas as notas
-    const notasAtualizadas = await buscarNotas(usuario_logado.email);
-    notasAtualizadas.forEach(nota => {
-        mostrarNota(nota);
-    });
 
     // Flag para verificar se é o primeiro acesso
     var primeiroAcesso = localStorage.getItem("primeiroAcesso_" + usuario_logado.email);
@@ -182,57 +165,10 @@ window.onload = async function() {
         // Marca que já teve o primeiro acesso
         localStorage.setItem("primeiroAcesso_" + usuario_logado.email, "true");
     }
+
+    // Pega todas as notas do usuário logado
+    // Para cada nota chama a função mostrarNota()
+    notas[usuario_logado.email].forEach(nota => {
+        mostrarNota(nota);
+    });
 };
-
-// Buscar Usuarios
-// async -> permite que o JavaScript não fique travado, esperando uma tarefa longa
-// fetch -> manda um pedido para a internet.
-// await fetch -> espera até a resposta chegar.
-async function buscarNotas(email) {
-    try {
-        var response = await fetch(SHEETDB_NOTES_API_URL + "/search?Email=" + email); // informações (status da entrega, se deu certo ou erro)
-        if (!response.ok) {
-            throw new Error("Erro ao buscar notas: " + response.status);
-        }
-        var data = await response.json(); // os dados de verdade (que você precisava abrir)
-        return data; // lista de notas do usuário   
-    } catch (error) {
-        console.error("Erro:", error);
-        return null;
-    }
-}
-
-// Salvar Notas 
-async function salvarNota(email, titulo, conteudo) {
-    try {
-    /// Buscar todas as notas antes de salvar
-
-        const response = await fetch(SHEETDB_NOTES_API_URL, {
-            method: "POST", // criar novo registro
-            headers: {
-                "Content-Type": "application/json"
-            },
-            // body -> conteúdo que é enviado para POST
-            body: JSON.stringify({
-                data: [
-                    {
-                        Email: email,
-                        Titulo: titulo || "Sem título",
-                        Conteudo: conteudo
-                    }
-                ]
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error("Erro ao salvar nota: " + response.status);
-        }
-
-        var data = await response.json();
-        console.log("Nota salva com sucesso:", data);
-        return data;
-    } catch (error) {
-        console.error("Erro ao salvar nota:", error);
-        return null;
-    }
-}
