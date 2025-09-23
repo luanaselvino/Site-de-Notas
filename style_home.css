@@ -257,16 +257,6 @@ body{
     box-shadow: 0px 0px 10px 0px #bdbdbd65;
 }
 
-::-webkit-scrollbar { /* área de scroll */
-    width: 15px;
-}
-::-webkit-scrollbar-thumb { /* scroll */
-    background: #e2e2e2;
-    
-    border-radius: 20px 20px 20px 20px;
-    border: 2px solid  rgba(255, 255, 255, 0.712);
-}
-
 #add_button {
     /* Tamanho da div */
     width: 80px;

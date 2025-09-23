@@ -1,5 +1,6 @@
 //add API key sheetDB
-const SHEETDB_NOTAS_API_URL = 'https://sheetdb.io/api/v1/i6iwwatljj0kh';
+const SHEETDB_NOTAS_API_URL = 'https://sheetdb.io/api/v1/ka68d96scsjaa' 
+//'https://sheetdb.io/api/v1/i6iwwatljj0kh';
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload =  async function() {

@@ -1,5 +1,6 @@
 //add API key sheetDB -> mudar para .env 
-const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/un4cuz49q5gu6';
+const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/ugcfbu7lo8hyb'
+//'https://sheetdb.io/api/v1/un4cuz49q5gu6';//
 
 // Realizar cadastro
 var form_cadastro = document.getElementById("form_cadastro");
@@ -64,7 +65,9 @@ form_login.addEventListener("submit", async function(event) {
             // Guardar info de usuário logado
             localStorage.setItem("usuario_logado", JSON.stringify(user));
 
-            window.location.href = "home.html";
+            document.getElementById("form_workplace").style.display = "flex";
+            document.getElementById("form_login").style.display="none";
+            // window.location.href = "home.html";
         } else {
             alert("Usuário ou senha incorretos");
         }
