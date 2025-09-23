@@ -1,3 +1,105 @@
+//add API key sheetDB
+const SHEETDB_NOTAS_API_URL = 'https://sheetdb.io/api/v1/i6iwwatljj0kh';
+
+// window.onload = function(){}; a função só é executada quando a página termina de carregar
+window.onload =  async function() {
+    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+
+    if (!usuario_logado) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    try {
+        // Busca na API DE NOTAS todas as notas onde a coluna 'UserID' bate com o Id do usuário logado
+        const response = await fetch(`${SHEETDB_NOTAS_API_URL}/search?UserID=${usuario_logado.UserID}`);
+        const notasDoUsuario = await response.json(); // A resposta é a lista de notas
+        
+        // Mostra cada nota encontrada na tela
+        if (notasDoUsuario.length > 0) {
+            notasDoUsuario.forEach(nota => {
+                mostrarNota(nota);
+            });
+        }
+    } catch (error) {
+        console.error("Erro ao buscar notas do usuário:", error);
+    }
+};
+
+// Salvar notas criadas (SHEETDB)
+document.getElementById("salvar").addEventListener("click", async function() {
+    document.getElementById("inserir_nota").style.display = "none";
+    
+    var titulo = document.getElementById("titulo").value;
+    var conteudo = document.getElementById("conteudo").value;
+    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+
+    if (conteudo !== "" && usuario_logado.UserID) {
+        try {
+            const novaNota = {
+                NotasID: Date.now(),
+                UserID: usuario_logado.UserID,
+                Titulo: titulo || "Sem título",
+                Conteudo: conteudo
+            };
+
+            // Usa a API DE NOTAS para criar (POST) uma nova linha
+            await fetch(SHEETDB_NOTAS_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ data: [novaNota] })
+            });
+
+            // Limpa os campos
+            document.getElementById("titulo").value = "";
+            document.getElementById("conteudo").value = "";
+            
+            mostrarNota(novaNota);
+
+        } catch (error) {
+            console.error("Erro ao salvar a nota:", error);
+            alert("Não foi possível salvar a nota.");
+        }
+    }
+});
+
+function mostrarNota(nota){
+    var box = document.createElement('div');
+    box.classList.add('box');
+    // Usamos as colunas Titulo e Conteudo que vêm diretamente da planilha de Notas
+    box.innerHTML = `
+        <div class="titulo">${nota.Titulo}</div>
+        <div class="conteudo">${nota.Conteudo}</div>
+        <div class="editor">
+            <button class="excluir_nota"> <i class="fa-solid fa-eraser"></i> </button>
+            <button class="editar_nota"> <i class="fa-solid fa-pen-to-square"></i> </button>
+        </div>
+    `;
+
+    var excluir_nota = box.querySelector(".excluir_nota");
+    excluir_nota.addEventListener("click", async function() {
+        if (!confirm("Tem certeza que deseja apagar esta nota?")) {
+            return;
+        }
+        try {
+            // Usa a API DE NOTAS para apagar (DELETE) a linha com o ID específico da nota
+            await fetch(`${SHEETDB_NOTAS_API_URL}/NotasID/${nota.NotasID}`, {
+                method: 'DELETE'
+            });
+            
+            // Remove a nota da tela.
+            box.remove();
+
+        } catch (error) {
+            console.error("Erro ao excluir a nota:", error);
+            alert("Não foi possível excluir a nota. Tente novamente.");
+        }
+    });
+
+    document.getElementById("main").appendChild(box);
+}
+
+// NAVEGAÇÃO //
 // Fechar editor de notas
 document.getElementById("close_nota").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "none";
@@ -7,101 +109,10 @@ document.getElementById("close_nota").addEventListener("click", function() {
     document.getElementById("conteudo").value = "";
 });
 
-// Salvar notas criadas com localStorage
-document.getElementById("salvar").addEventListener("click", function() {
-    document.getElementById("inserir_nota").style.display = "none";
-    
-    var titulo = document.getElementById("titulo").value;
-    var conteudo = document.getElementById("conteudo").value;
-
-    if (conteudo !== "") {
-        // Recupera usuário logado
-        // JSON.parse() transforma a informação que estava como texto de volta em objeto de JS
-        var usuario_logado = JSON.parse(localStorage.getItem ("usuario_logado"));
-
-        // Recupera TODAS as notas já salvas ou cria um objeto vazio {}
-        var notas = JSON.parse(localStorage.getItem("notas")) || {};
-
-        // Verifica se o usuário ainda não tem uma lista de notas
-        //Se não tiver, cria uma lista vazia
-        if (!notas[usuario_logado.email]) {
-            notas[usuario_logado.email] = [];
-        }
-
-        // Criar objeto da nova nota
-        var novaNota = {
-            id: Date.now(),  // cria um id único
-            titulo: titulo || "Sem título",
-            conteudo: conteudo
-        };
-
-        // Pegamos a lista de notas do usuário atual (notas[usuario_logado.email]) e colocamos a nova nota dentro dela.
-        notas[usuario_logado.email].push(novaNota);
-
-        // Salvar de volta no localStorage
-        localStorage.setItem("notas", JSON.stringify(notas));
-
-        // Mostrar na tela // Chamar função mostrarNota()
-        mostrarNota(novaNota);
-    }
-
-    // Limpar os inputs
-    document.getElementById("titulo").value = "";
-    document.getElementById("conteudo").value = "";
-});
-
-function mostrarNota(nota){
-    const box = document.createElement('div');
-    box.classList.add('box');
-    box.innerHTML = `
-        <div class="titulo">${nota.titulo}</div>
-        <div class="conteudo">${nota.conteudo}</div>
-
-        <div class="editor">
-            <button class="excluir_nota">
-                <i class="fa-solid fa-eraser"></i>
-            </button>
-
-            <button class="editar_nota">
-                <i class="fa-solid fa-pen-to-square"></i>
-            </button>
-        </div>
-    `;
-
-    // Apagar notas //
-    // adiciona evento em cada um
-    var excluir_nota = box.querySelector(".excluir_nota");
-    excluir_nota.addEventListener("click", function() {
-        
-        var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-        var notas = JSON.parse(localStorage.getItem("notas")) || {};
-
-        // Filtra a nota clicada
-        // notas[usuario_logado.email] → é a lista de todas as notas do usuário
-        // .filter é uma função de array que cria um novo array com apenas os itens que passam no teste, cada item da lista (n) será testado
-        // => indica uma função curta que retorna true ou false
-        // Se retornar true, a nota fica na lista. Se retornar false, a nota é removida.
-        // verifica se a nota atual n é exatamente igual à nota que queremos apagar
-        // só mantém na lista as notas que NÃO são iguais à nota clicada
-        notas[usuario_logado.email] = notas[usuario_logado.email].filter(n => 
-            !(n.titulo === nota.titulo && n.conteudo === nota.conteudo)
-        );
-
-        // salva de volta no localStorage
-        localStorage.setItem("notas", JSON.stringify(notas));
-        
-        box.remove(); // remove da tela
-    });
-
-    document.getElementById("main").appendChild(box);
-}
-
 // Abrir div="inserir_nota"
 document.getElementById("add_button").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "block";
 });
-    
-// Editar notas
 
 // Abrir nav
 document.getElementById("open_nav").addEventListener("click", function() {
@@ -129,46 +140,3 @@ deslogar.addEventListener("click", function(event){
     window.location.href = "index.html";
 
 });
-
-// window.onload = function(){}; a função só é executada quando a página termina de carregar
-window.onload = function() {
-    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-
-    // Se não tem usuário logado → volta pro login
-    /*if (!usuario_logado) {
-        window.location.href = "index.html";
-        return; // impede que o resto do código rode
-    }*/
-
-    var notas = JSON.parse(localStorage.getItem("notas")) || {};
-
-    if (!notas[usuario_logado.email]) {
-        notas[usuario_logado.email] = [];
-        localStorage.setItem("notas", JSON.stringify(notas));
-    }
-
-    // Flag para verificar se é o primeiro acesso
-    var primeiroAcesso = localStorage.getItem("primeiroAcesso_" + usuario_logado.email);
-
-    if (!primeiroAcesso) {
-        // Cria nota inicial
-        var notaInicial = {
-            id: Date.now(),  // id único
-            titulo: "Bem-vindo(a)!",
-            conteudo: "Esta é sua primeira nota. Você pode editá-la ou apagar quando quiser."
-        }
-
-        // Adiciona ao storage
-        notas[usuario_logado.email].push(notaInicial);
-        localStorage.setItem("notas", JSON.stringify(notas));
-
-        // Marca que já teve o primeiro acesso
-        localStorage.setItem("primeiroAcesso_" + usuario_logado.email, "true");
-    }
-
-    // Pega todas as notas do usuário logado
-    // Para cada nota chama a função mostrarNota()
-    notas[usuario_logado.email].forEach(nota => {
-        mostrarNota(nota);
-    });
-};

@@ -1,16 +1,6 @@
 //add API key sheetDB -> mudar para .env 
 const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/un4cuz49q5gu6';
 
-// Abrir form de cadastro
-var link_cadastro = document.getElementById("irParaCadastro");
-
-link_cadastro.addEventListener("click", function() {
-
-    document.getElementById("form_cadastro").style.display="flex";
-    document.getElementById("form_login").style.display="none";
-
-});
-
 // Realizar cadastro
 var form_cadastro = document.getElementById("form_cadastro");
 var mensagem = document.getElementById("mensagem");
@@ -49,11 +39,6 @@ form_cadastro.addEventListener("submit", async function(event){
         mensagem.textContent = "Erro ao cadastrar usuário";
         mensagem.style.color = "red";
     }
-});
-
-// Voltar para Login
-document.getElementById("voltar_login").addEventListener("click", function() {
-    window.location.href = "index.html";
 });
 
 // Entrar com conta existente
@@ -115,11 +100,11 @@ entrar_visitante.addEventListener("click", function(event) {
 // await fetch -> espera até a resposta chegar.
 async function buscarUsuario() {
     try {
-        var response = await fetch(SHEETDB_USERS_API_URL); // informações (status da entrega, se deu certo ou erro)
+        const response = await fetch(SHEETDB_USERS_API_URL); // informações (status da entrega, se deu certo ou erro)
         if (!response.ok) {
             throw new Error("Erro na requisição: " + response.status);
         }
-        var data = await response.json(); // os dados de verdade (que você precisava abrir)
+        const data = await response.json(); // os dados de verdade (que você precisava abrir)
         console.log(JSON.stringify(data, null, 2)); // facilitar leitura
         return data;       
     } catch (error) {
@@ -137,12 +122,12 @@ async function salvarUsuario(nome, email, senha, perfil, grupo) {
         // Pegar o maior Id existente
         let ultimoId = 0;
         if (usuarios.length > 0) {
-            ultimoId = Math.max(...usuarios.map(u => Number(u.Id) || 0));
+            ultimoId = Math.max(...usuarios.map(u => Number(u.UserID) || 0));
         }
 
         let proximoId = ultimoId + 1;
 
-        const response = await fetch(SHEETDB_API_URL, {
+        const response = await fetch(SHEETDB_USERS_API_URL, {
             method: "POST", // criar novo registro
             headers: {
                 "Content-Type": "application/json"
@@ -151,7 +136,7 @@ async function salvarUsuario(nome, email, senha, perfil, grupo) {
             body: JSON.stringify({
                 data: [
                     {
-                        Id: proximoId,
+                        UserID: proximoId,
                         Nome: nome,
                         Email: email,
                         Senha: senha,
@@ -166,11 +151,27 @@ async function salvarUsuario(nome, email, senha, perfil, grupo) {
             throw new Error("Erro ao salvar: " + response.status);
         }
 
-        var data = await response.json();
+        const data = await response.json();
         console.log("Usuário salvo com sucesso:", JSON.stringify(data, null, 2));
         return data;
     } catch (error) {
-        console.error("Erro ao salvar usuário:", error);
+        console.error("Esse email já está cadastrado!", error);
         return null;
     }
 }
+
+// NAVEGAÇÃO //
+// Voltar para Login
+document.getElementById("voltar_login").addEventListener("click", function() {
+    window.location.href = "index.html";
+});
+
+// Abrir form de cadastro
+var link_cadastro = document.getElementById("irParaCadastro");
+
+link_cadastro.addEventListener("click", function() {
+
+    document.getElementById("form_cadastro").style.display="flex";
+    document.getElementById("form_login").style.display="none";
+
+});
