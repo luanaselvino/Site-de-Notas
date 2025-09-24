@@ -78,24 +78,36 @@ form_login.addEventListener("submit", async function(event) {
     }
 });
 
-// Entrar como visitante
-/*var entrar_visitante = document.getElementById("entrar_visitante");
+// Entrar no Workplace
+var form_workplace = document.getElementById("form_workplace");
+form_workplace.addEventListener("submit", async function (event) {
 
-entrar_visitante.addEventListener("click", function(event) {
     event.preventDefault();
 
-    // Cria um "usuário" especial de visitante
-    var visitante = {
-        email: "visitante",
-        senha: null
-    };
+    var workplace_id = document.getElementById("workplace_id").value;
+    try {
+        // Buscar todos os grupos no SheetDB
+        const workplace = await buscarGrupo();
 
-    // Logar a conta de visitante
-    localStorage.setItem("usuario_logado", JSON.stringify(visitante));
+        // Verificar se grupo existe
+        var grupo = workplace.find(u => u.Grupo === workplace_id);
 
-    window.location.href = "home.html";
+        if (grupo) {
+            alert("Login realizado com sucesso!");
+
+            // Guardar info de usuário logado
+            localStorage.setItem("grupo_logado", JSON.stringify(grupo));
+
+            window.location.href = "home.html";
+        } else {
+            alert("Este Workplace não existe");
+        }
+
+    } catch (error) {
+        console.error("Erro ao tentar logar:", error);
+        alert("Erro ao tentar logar");
+    }
 });
-*/
 
 // Buscar Usuarios
 // async -> permite que o JavaScript não fique travado, esperando uma tarefa longa
@@ -112,6 +124,21 @@ async function buscarUsuario() {
         return data;       
     } catch (error) {
         console.error("Erro ao buscar usuário:", error);
+        return null;
+    }
+}
+
+async function buscarGrupo() {
+    try {
+        const response = await fetch(SHEETDB_USERS_API_URL); // informações (status da entrega, se deu certo ou erro)
+        if (!response.ok) {
+            throw new Error("Erro na requisição: " + response.status);
+        }
+        const data = await response.json(); // os dados de verdade (que você precisava abrir)
+        console.log(JSON.stringify(data, null, 2)); // facilitar leitura
+        return data;       
+    } catch (error) {
+        console.error("Erro ao buscar grupo:", error);
         return null;
     }
 }

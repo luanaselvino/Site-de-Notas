@@ -126,7 +126,7 @@ input{
 }
 
 #ws-salvos{
-    width: 300px;
+    width: 310px;
     height: 170px;
     margin-bottom: 10px;
     overflow-y: auto; /* adiciona scroll vertical se necessário */
@@ -144,19 +144,18 @@ input{
 
 .ws{
     height: 40px;
+    width: 300px;
     margin: 5px;
 
     display: flex;
     align-items: center; /* verticalmente */
     justify-content: center; /* horizontalmente */
-    cursor: pointer;
     
     border-radius: 10px;
     border: solid 1px rgba(0, 0, 0, 0.137);
     box-shadow: 0px 0px 10px 0px #bdbdbd65;
     color: #747474;
     font: medium 15px Arial, sans-serif;
-    cursor: pointer;
 }
 
 #enviar{
@@ -190,7 +189,7 @@ p{
     bottom: 0;
     left: 0;
     
-    background: #53535333;
+    background: #53535310;
     color: white;
     text-align: center;
     padding: 6px;

@@ -1,19 +1,20 @@
+
 //add API key sheetDB
 const SHEETDB_NOTAS_API_URL = 'https://sheetdb.io/api/v1/ka68d96scsjaa' 
 //'https://sheetdb.io/api/v1/i6iwwatljj0kh';
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload =  async function() {
-    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+    var grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
 
-    if (!usuario_logado) {
+    if (!grupo_logado) {
         window.location.href = "index.html";
         return;
     }
 
     try {
         // Busca na API DE NOTAS todas as notas onde a coluna 'UserID' bate com o Id do usuário logado
-        const response = await fetch(`${SHEETDB_NOTAS_API_URL}/search?UserID=${usuario_logado.UserID}`);
+        const response = await fetch(`${SHEETDB_NOTAS_API_URL}/search?UserID=${grupo_logado.UserID}`);
         const notasDoUsuario = await response.json(); // A resposta é a lista de notas
         
         // Mostra cada nota encontrada na tela
@@ -33,13 +34,13 @@ document.getElementById("salvar").addEventListener("click", async function() {
     
     var titulo = document.getElementById("titulo").value;
     var conteudo = document.getElementById("conteudo").value;
-    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+    var grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
 
-    if (conteudo !== "" && usuario_logado.UserID) {
+    if (conteudo !== "" && grupo_logado.UserID) {
         try {
             const novaNota = {
                 NotasID: Date.now(),
-                UserID: usuario_logado.UserID,
+                UserID: grupo_logado.UserID,
                 Titulo: titulo || "Sem título",
                 Conteudo: conteudo
             };
@@ -135,7 +136,7 @@ deslogar.addEventListener("click", function(event){
     event.preventDefault(); // evita recarregar a página
 
     // Remove usuário logado do localStorage
-    localStorage.removeItem("usuario_logado");
+    localStorage.removeItem("grupo_logado");
 
     // Redireciona para login
     window.location.href = "index.html";
