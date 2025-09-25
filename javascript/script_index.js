@@ -79,8 +79,8 @@ form_login.addEventListener("submit", async function(event) {
 });
 
 // Entrar no Workplace
-var form_workplace = document.getElementById("form_workplace");
-form_workplace.addEventListener("submit", async function (event) {
+var entrar_workplace = document.getElementById("entrar_workplace");
+entrar_workplace.addEventListener("click", async function (event) {
 
     event.preventDefault();
 
