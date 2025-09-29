@@ -27,7 +27,7 @@ form_cadastro.addEventListener("submit", async function(event){
         }
 
         // Salvar novo usuário no SheetDB
-        await salvarUsuario(nome_cadastro, email_cadastro, senha_cadastro, "admin", "grupoTeste");
+        await salvarUsuario(nome_cadastro, email_cadastro, senha_cadastro, "Admin", "grupoTeste");
 
         mensagem.textContent = "Conta criada com sucesso";
         mensagem.style.color = "green";

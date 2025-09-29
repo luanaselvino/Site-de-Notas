@@ -6,6 +6,8 @@ const SHEETDB_NOTAS_API_URL = 'https://sheetdb.io/api/v1/ka68d96scsjaa'
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload =  async function() {
     var grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
+    var nome_usuario = document.getElementById("nome_usuario");
+    var tipo_perfil = document.getElementById("tipo_perfil");
 
     if (!grupo_logado) {
         window.location.href = "index.html";
@@ -23,6 +25,10 @@ window.onload =  async function() {
                 mostrarNota(nota);
             });
         }
+
+        nome_usuario.textContent = `${grupo_logado.Nome} (ativo)`;
+        tipo_perfil.textContent = grupo_logado.Perfil;
+
     } catch (error) {
         console.error("Erro ao buscar notas do usuário:", error);
     }
@@ -41,6 +47,7 @@ document.getElementById("salvar").addEventListener("click", async function() {
             const novaNota = {
                 NotasID: Date.now(),
                 UserID: grupo_logado.UserID,
+                Nome: grupo_logado.Nome,
                 Titulo: titulo || "Sem título",
                 Conteudo: conteudo
             };

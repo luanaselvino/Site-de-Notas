@@ -95,7 +95,7 @@ form h3{
     margin-bottom: 25px;
 }
 
-#form_cadastro, #form_login{
+#form_cadastro, #form_workplace{
     display: none;
 }
 
@@ -127,6 +127,7 @@ input{
 #workplace_code {
     display: flex;
     width: 300px;
+    margin-bottom: 10px;
     padding: 0;
 }
 
@@ -151,11 +152,19 @@ input{
     overflow-y: auto; /* adiciona scroll vertical se necessário */
 }
 
+#ws-salvos p {
+    text-align: center;
+    margin-top: 60px;
+    font: medium 12px Arial, sans-serif;
+    color: #3b3f49;
+}
+
 ::-webkit-scrollbar { /* área de scroll */
     width: 10px;
 }
+
 ::-webkit-scrollbar-thumb { /* scroll */
-    background: #e2e2e2;
+    background: #e2e2e271;
     
     border-radius: 20px 20px 20px 20px;
     border: 2px solid  rgba(255, 255, 255, 0.712);
@@ -163,7 +172,7 @@ input{
 
 .ws{
     height: 40px;
-    width: 300px;
+    width: 290px;
     margin: 5px;
 
     display: flex;
