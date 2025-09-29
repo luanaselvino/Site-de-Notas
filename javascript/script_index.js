@@ -1,6 +1,7 @@
 //add API key sheetDB -> mudar para .env 
 const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/ugcfbu7lo8hyb'
 //'https://sheetdb.io/api/v1/un4cuz49q5gu6';//
+const SHEETDB_GRUPO_API_URL = 'https://sheetdb.io/api/v1/0b4ped76q9xj6'
 
 // Realizar cadastro
 var form_cadastro = document.getElementById("form_cadastro");
@@ -90,7 +91,7 @@ entrar_workplace.addEventListener("click", async function (event) {
         const workplace = await buscarGrupo();
 
         // Verificar se grupo existe
-        var grupo = workplace.find(u => u.Grupo === workplace_id);
+        var grupo = workplace.find(u => u.GrupoID === workplace_id);
 
         if (grupo) {
             alert("Login realizado com sucesso!");
@@ -108,6 +109,15 @@ entrar_workplace.addEventListener("click", async function (event) {
         alert("Erro ao tentar logar");
     }
 });
+
+// Criar novo Workplace
+var criar_workplace = document.getElementById("form_workplace");
+criar_workplace.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    /* adicionar novo grupo na planilha e logar nele e direcionar para as notas */
+})
 
 // Buscar Usuarios
 // async -> permite que o JavaScript não fique travado, esperando uma tarefa longa
@@ -130,7 +140,7 @@ async function buscarUsuario() {
 
 async function buscarGrupo() {
     try {
-        const response = await fetch(SHEETDB_USERS_API_URL); // informações (status da entrega, se deu certo ou erro)
+        const response = await fetch(SHEETDB_GRUPO_API_URL); // informações (status da entrega, se deu certo ou erro)
         if (!response.ok) {
             throw new Error("Erro na requisição: " + response.status);
         }
@@ -144,7 +154,7 @@ async function buscarGrupo() {
 }
 
 // Salvar Usuarios 
-async function salvarUsuario(nome, email, senha, perfil, grupo) {
+async function salvarUsuario(nome, email, senha, perfil) {
     try {
     /// Buscar todos os usuários antes de salvar
         const usuarios = await buscarUsuario();
@@ -170,8 +180,7 @@ async function salvarUsuario(nome, email, senha, perfil, grupo) {
                         Nome: nome,
                         Email: email,
                         Senha: senha,
-                        Perfil: perfil,
-                        Grupo: grupo
+                        Perfil: perfil
                     }
                 ]
             })
@@ -192,8 +201,11 @@ async function salvarUsuario(nome, email, senha, perfil, grupo) {
 
 // NAVEGAÇÃO //
 // Voltar para Login
-document.getElementById("voltar_login").addEventListener("click", function() {
-    window.location.href = "index.html";
+document.querySelectorAll(".voltar_login").forEach(function(botao) {
+    botao.addEventListener("click", function(event) {
+        event.preventDefault();
+        window.location.href = "index.html";
+    });
 });
 
 // Abrir form de cadastro

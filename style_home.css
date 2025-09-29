@@ -336,10 +336,24 @@ body{
 }
 
 .editor {
+    display: flex;
     margin-top: 10px;
-    background-color: goldenrod;
-    border: none;
 }
+
+.acoes {
+    border: none;
+    margin-left: auto;
+}
+
+.box span {
+    height: 17px;
+    padding: 0px 8px;
+    border: solid 1px #4246428c;
+    border-radius: 10px;
+    color: #4246428c;
+    font-size: 14px;
+}
+
 
 .excluir_nota, .editar_nota {
     background: none;

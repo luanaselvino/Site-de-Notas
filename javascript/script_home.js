@@ -5,6 +5,7 @@ const SHEETDB_NOTAS_API_URL = 'https://sheetdb.io/api/v1/ka68d96scsjaa'
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload =  async function() {
+    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
     var grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
     var nome_usuario = document.getElementById("nome_usuario");
     var tipo_perfil = document.getElementById("tipo_perfil");
@@ -16,7 +17,8 @@ window.onload =  async function() {
 
     try {
         // Busca na API DE NOTAS todas as notas onde a coluna 'UserID' bate com o Id do usuário logado
-        const response = await fetch(`${SHEETDB_NOTAS_API_URL}/search?UserID=${grupo_logado.UserID}`);
+        const grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
+        const response = await fetch(`${SHEETDB_NOTAS_API_URL}/search?GrupoID=${grupo_logado.GrupoID}`);
         const notasDoUsuario = await response.json(); // A resposta é a lista de notas
         
         // Mostra cada nota encontrada na tela
@@ -26,8 +28,8 @@ window.onload =  async function() {
             });
         }
 
-        nome_usuario.textContent = `${grupo_logado.Nome} (ativo)`;
-        tipo_perfil.textContent = grupo_logado.Perfil;
+        nome_usuario.textContent = `${usuario_logado.Nome} (ativo)`;
+        tipo_perfil.textContent = usuario_logado.Perfil;
 
     } catch (error) {
         console.error("Erro ao buscar notas do usuário:", error);
@@ -41,15 +43,17 @@ document.getElementById("salvar").addEventListener("click", async function() {
     var titulo = document.getElementById("titulo").value;
     var conteudo = document.getElementById("conteudo").value;
     var grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
+    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
 
-    if (conteudo !== "" && grupo_logado.UserID) {
+    if (conteudo !== "" && usuario_logado && grupo_logado) {
         try {
             const novaNota = {
                 NotasID: Date.now(),
-                UserID: grupo_logado.UserID,
-                Nome: grupo_logado.Nome,
+                UserID: usuario_logado.UserID,
+                Nome: usuario_logado.Nome,
                 Titulo: titulo || "Sem título",
-                Conteudo: conteudo
+                Conteudo: conteudo,
+                GrupoID: grupo_logado.GrupoID
             };
 
             // Usa a API DE NOTAS para criar (POST) uma nova linha
@@ -79,9 +83,13 @@ function mostrarNota(nota){
     box.innerHTML = `
         <div class="titulo">${nota.Titulo}</div>
         <div class="conteudo">${nota.Conteudo}</div>
+        
         <div class="editor">
-            <button class="excluir_nota"> <i class="fa-solid fa-eraser"></i> </button>
-            <button class="editar_nota"> <i class="fa-solid fa-pen-to-square"></i> </button>
+            <span class="autor">${nota.Nome}</span>
+            <div class="acoes">
+                <button class="excluir_nota"> <i class="fa-solid fa-eraser"></i> </button>
+                <button class="editar_nota"> <i class="fa-solid fa-pen-to-square"></i> </button>
+            </div>
         </div>
     `;
 
