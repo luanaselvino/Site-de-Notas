@@ -1,7 +1,8 @@
 //add API key sheetDB -> mudar para .env 
-const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/ugcfbu7lo8hyb'
+const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/ugcfbu7lo8hyb';
 //'https://sheetdb.io/api/v1/un4cuz49q5gu6';//
-const SHEETDB_GRUPO_API_URL = 'https://sheetdb.io/api/v1/0b4ped76q9xj6'
+const SHEETDB_GRUPO_API_URL = 'https://sheetdb.io/api/v1/0b4ped76q9xj6';
+const SHEETDB_PARTICIPANTES_API_URL = 'https://sheetdb.io/api/v1/jxutod542en1u';
 
 // Realizar cadastro
 var form_cadastro = document.getElementById("form_cadastro");
@@ -94,6 +95,15 @@ entrar_workplace.addEventListener("click", async function (event) {
         var grupo = workplace.find(u => u.GrupoID === workplace_id);
 
         if (grupo) {
+            var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
+            if (usuario_logado) {
+                // Salvar usuário como participante do grupo
+                await salvarParticipante(usuario_logado, grupo);
+            } else {
+                alert("Erro: não foi possível identificar o usuário logado.");
+                return;
+            }
+
             alert("Login realizado com sucesso!");
 
             // Guardar info de usuário logado
@@ -196,6 +206,46 @@ async function salvarUsuario(nome, email, senha, perfil) {
     } catch (error) {
         console.error("Esse email já está cadastrado!", error);
         return null;
+    }
+}
+
+// Salvar participantes
+async function salvarParticipante(usuario, grupo) {
+    try {
+        // Verificar se usuário já não é um participante do grupo
+        const responseBusca = await fetch(`${SHEETDB_PARTICIPANTES_API_URL}/search?UserID=${usuario.UserID}&GrupoID=${grupo.GrupoID}`);
+        const participantes = await responseBusca.json();
+
+        if (participantes.length > 0) {
+            console.log("Usuário já é participante deste grupo.");
+            return;
+        }
+
+        const response = await fetch(SHEETDB_PARTICIPANTES_API_URL, {
+            method: "POST", // Criar novo registro
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                data: [
+                    {
+                        "UserID": usuario.UserID,
+                        "Nome": usuario.Nome,
+                        "GrupoID": grupo.GrupoID
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro ao salvar participante: " + response.status);
+        }
+
+        const data = await response.json();
+        console.log("Participante salvo com sucesso:", JSON.stringify(data, null, 2));
+
+    } catch (error) {
+        console.error("Ocorreu um erro ao salvar o participante:", error);
     }
 }
 
