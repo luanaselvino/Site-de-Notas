@@ -1,8 +1,4 @@
-//add API key sheetDB -> mudar para .env 
-const SHEETDB_USERS_API_URL = 'https://sheetdb.io/api/v1/ugcfbu7lo8hyb';
-//'https://sheetdb.io/api/v1/un4cuz49q5gu6';//
-const SHEETDB_GRUPO_API_URL = 'https://sheetdb.io/api/v1/0b4ped76q9xj6';
-const SHEETDB_PARTICIPANTES_API_URL = 'https://sheetdb.io/api/v1/jxutod542en1u';
+let usuarioLogado = null;
 
 // Realizar cadastro
 var form_cadastro = document.getElementById("form_cadastro");
@@ -63,12 +59,13 @@ form_login.addEventListener("submit", async function(event) {
 
         if (user) {
             alert("Login realizado com sucesso!");
-
+            usuarioLogado = user;
             // Guardar info de usuário logado
-            localStorage.setItem("usuario_logado", JSON.stringify(user));
+            localStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
 
             document.getElementById("form_workplace").style.display = "flex";
             document.getElementById("form_login").style.display="none";
+            carregarGruposDoUsuario();
             // window.location.href = "home.html";
         } else {
             alert("Usuário ou senha incorretos");
@@ -95,10 +92,9 @@ entrar_workplace.addEventListener("click", async function (event) {
         var grupo = workplace.find(u => u.GrupoID === workplace_id);
 
         if (grupo) {
-            var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-            if (usuario_logado) {
+            if (usuarioLogado) {
                 // Salvar usuário como participante do grupo
-                await salvarParticipante(usuario_logado, grupo);
+                await salvarParticipante(usuarioLogado, grupo);
             } else {
                 alert("Erro: não foi possível identificar o usuário logado.");
                 return;
@@ -107,7 +103,7 @@ entrar_workplace.addEventListener("click", async function (event) {
             alert("Login realizado com sucesso!");
 
             // Guardar info de usuário logado
-            localStorage.setItem("grupo_logado", JSON.stringify(grupo));
+            localStorage.setItem("grupoLogado", JSON.stringify(grupo));
 
             window.location.href = "home.html";
         } else {
@@ -135,7 +131,7 @@ criar_workplace.addEventListener("submit", async function (event) {
 // await fetch -> espera até a resposta chegar.
 async function buscarUsuario() {
     try {
-        const response = await fetch(SHEETDB_USERS_API_URL); // informações (status da entrega, se deu certo ou erro)
+        const response = await fetch(SHEETDB_API.USERS); // informações (status da entrega, se deu certo ou erro)
         if (!response.ok) {
             throw new Error("Erro na requisição: " + response.status);
         }
@@ -143,23 +139,99 @@ async function buscarUsuario() {
         console.log(JSON.stringify(data, null, 2)); // facilitar leitura
         return data;       
     } catch (error) {
-        console.error("Erro ao buscar usuário:", error);
+        console.error("Erro ao buscar usuário: ", error);
         return null;
     }
 }
 
 async function buscarGrupo() {
     try {
-        const response = await fetch(SHEETDB_GRUPO_API_URL); // informações (status da entrega, se deu certo ou erro)
+        const response = await fetch(SHEETDB_API.GRUPOS);
         if (!response.ok) {
             throw new Error("Erro na requisição: " + response.status);
         }
-        const data = await response.json(); // os dados de verdade (que você precisava abrir)
-        console.log(JSON.stringify(data, null, 2)); // facilitar leitura
+        const data = await response.json();
+        console.log(JSON.stringify(data, null, 2));
         return data;       
     } catch (error) {
-        console.error("Erro ao buscar grupo:", error);
+        console.error("Erro ao buscar grupo: ", error);
         return null;
+    }
+}
+
+async function gruposDoUsuario() {
+    try  {
+        const response = await fetch(SHEETDB_API.PARTICIPANTES);
+        if (!response.ok) {
+            throw new Error("Erro ao buscar grupos do usuário: " + response.status);
+        }
+        const data = await response.json();
+        console.log(JSON.stringify(data, null, 2));
+        return data;
+    } catch (error) {
+        console.error("Erro ao buscar grupos do usuário: ", error);
+        return null;
+    }
+}
+
+async function mostrarGrupos(grupo) {
+    var ws = document.createElement('div');
+    ws.classList.add('ws');
+    ws.innerHTML = `
+        <span>${grupo.Grupo}</span>
+    `;
+
+    ws.addEventListener('click', function() {
+        // Loga o usuário diretamente no grupo clicado
+        localStorage.setItem("grupoLogado", JSON.stringify(grupo));
+        window.location.href = "home.html";
+    });
+
+    document.getElementById("ws-salvos").appendChild(ws);
+}
+
+async function carregarGruposDoUsuario() {
+    if (!usuarioLogado) {
+        console.error("Nenhum usuário logado para buscar grupos.");
+        return;
+    }
+
+    try {
+        const responseParticipantes = await fetch(`${SHEETDB_API.PARTICIPANTES}/search?UserID=${usuarioLogado.UserID}`);
+        const participacoes = await responseParticipantes.json();
+
+        if (participacoes.length === 0) {
+            document.getElementById("ws-salvos").innerHTML = "<p>Não há workplaces salvos.</p>";
+            return;
+        }
+        
+        document.getElementById("ws-salvos").innerHTML = ''; 
+
+        // Busca todos os grupos para pegar detalhes
+        const responseGrupos = await fetch(SHEETDB_API.GRUPOS);
+        const todosOsGrupos = await responseGrupos.json();
+
+        // Para cada participação encontra o grupo correspondente e o exibe
+        const idsProcessados = new Set();
+
+        participacoes.forEach(participacao => {
+            // Verifica se o ID do grupo já foi processado.
+            if (idsProcessados.has(participacao.GrupoID)) {
+                return; 
+            }
+
+            const detalhesDoGrupo = todosOsGrupos.find(g => g.GrupoID === participacao.GrupoID);
+            
+            if (detalhesDoGrupo) {
+                mostrarGrupos(detalhesDoGrupo);
+                // Adiciona o ID do grupo ao conjunto para não processá-lo novamente.
+                idsProcessados.add(detalhesDoGrupo.GrupoID);
+            }
+        });
+
+    } catch (error) {
+        console.error("Erro ao carregar os grupos do usuário:", error);
+        document.getElementById("ws-salvos").innerHTML = "<p>Erro ao carregar seus workplaces.</p>";
     }
 }
 
@@ -177,7 +249,7 @@ async function salvarUsuario(nome, email, senha, perfil) {
 
         let proximoId = ultimoId + 1;
 
-        const response = await fetch(SHEETDB_USERS_API_URL, {
+        const response = await fetch(SHEETDB_API.USERS, {
             method: "POST", // criar novo registro
             headers: {
                 "Content-Type": "application/json"
@@ -213,7 +285,7 @@ async function salvarUsuario(nome, email, senha, perfil) {
 async function salvarParticipante(usuario, grupo) {
     try {
         // Verificar se usuário já não é um participante do grupo
-        const responseBusca = await fetch(`${SHEETDB_PARTICIPANTES_API_URL}/search?UserID=${usuario.UserID}&GrupoID=${grupo.GrupoID}`);
+        const responseBusca = await fetch(`${SHEETDB_API.PARTICIPANTES}/search?UserID=${usuario.UserID}&GrupoID=${grupo.GrupoID}`);
         const participantes = await responseBusca.json();
 
         if (participantes.length > 0) {
@@ -221,7 +293,7 @@ async function salvarParticipante(usuario, grupo) {
             return;
         }
 
-        const response = await fetch(SHEETDB_PARTICIPANTES_API_URL, {
+        const response = await fetch(SHEETDB_API.PARTICIPANTES, {
             method: "POST", // Criar novo registro
             headers: {
                 "Content-Type": "application/json"

@@ -1,23 +1,22 @@
-//add API key sheetDB
-const SHEETDB_NOTAS_API_URL = 'https://sheetdb.io/api/v1/ka68d96scsjaa'; 
-//'https://sheetdb.io/api/v1/i6iwwatljj0kh';
+let usuarioLogado = null;
+let grupoLogado = null;
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload =  async function() {
-    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
-    var grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
+    usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+    grupoLogado = JSON.parse(localStorage.getItem("grupoLogado"));
+
     var nome_usuario = document.getElementById("nome_usuario");
     var tipo_perfil = document.getElementById("tipo_perfil");
 
-    if (!grupo_logado) {
+    if (!grupoLogado || !usuarioLogado) {
         window.location.href = "index.html";
         return;
     }
 
     try {
         // Busca na API DE NOTAS todas as notas onde a coluna 'UserID' bate com o Id do usuário logado
-        const grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
-        const response = await fetch(`${SHEETDB_NOTAS_API_URL}/search?GrupoID=${grupo_logado.GrupoID}`);
+        const response = await fetch(`${SHEETDB_API.NOTAS}/search?GrupoID=${grupoLogado.GrupoID}`);
         const notasDoUsuario = await response.json(); // A resposta é a lista de notas
         
         // Mostra cada nota encontrada na tela
@@ -27,8 +26,8 @@ window.onload =  async function() {
             });
         }
 
-        nome_usuario.textContent = `${usuario_logado.Nome} (ativo)`;
-        tipo_perfil.textContent = usuario_logado.Perfil;
+        nome_usuario.textContent = `${usuarioLogado.Nome} (ativo)`;
+        tipo_perfil.textContent = usuarioLogado.Perfil;
 
     } catch (error) {
         console.error("Erro ao buscar notas do usuário:", error);
@@ -41,18 +40,16 @@ document.getElementById("salvar").addEventListener("click", async function() {
     
     var titulo = document.getElementById("titulo").value;
     var conteudo = document.getElementById("conteudo").value;
-    var grupo_logado = JSON.parse(localStorage.getItem("grupo_logado"));
-    var usuario_logado = JSON.parse(localStorage.getItem("usuario_logado"));
 
-    if (conteudo !== "" && usuario_logado && grupo_logado) {
+    if (conteudo !== "" && usuarioLogado && grupoLogado) {
         try {
             const novaNota = {
                 NotasID: Date.now(),
-                UserID: usuario_logado.UserID,
-                Nome: usuario_logado.Nome,
+                UserID: usuarioLogado.UserID,
+                Nome: usuarioLogado.Nome,
                 Titulo: titulo || "Sem título",
                 Conteudo: conteudo,
-                GrupoID: grupo_logado.GrupoID
+                GrupoID: grupoLogado.GrupoID
             };
 
             // Usa a API DE NOTAS para criar (POST) uma nova linha
@@ -99,7 +96,7 @@ function mostrarNota(nota){
         }
         try {
             // Usa a API DE NOTAS para apagar (DELETE) a linha com o ID específico da nota
-            await fetch(`${SHEETDB_NOTAS_API_URL}/NotasID/${nota.NotasID}`, {
+            await fetch(`${SHEETDB_API.NOTAS}/NotasID/${nota.NotasID}`, {
                 method: 'DELETE'
             });
             
@@ -149,8 +146,9 @@ deslogar.addEventListener("click", function(event){
 
     event.preventDefault(); // evita recarregar a página
 
-    // Remove usuário logado do localStorage
-    localStorage.removeItem("grupo_logado");
+    // Remove usuário logado do 
+    localStorage.removeItem("usuarioLogado");
+    localStorage.removeItem("grupoLogado");
 
     // Redireciona para login
     window.location.href = "index.html";
