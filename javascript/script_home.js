@@ -53,7 +53,7 @@ document.getElementById("salvar").addEventListener("click", async function() {
             };
 
             // Usa a API DE NOTAS para criar (POST) uma nova linha
-            await fetch(SHEETDB_NOTAS_API_URL, {
+            await fetch(SHEETDB_API.NOTAS, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ data: [novaNota] })
