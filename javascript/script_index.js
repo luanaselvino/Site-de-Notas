@@ -332,7 +332,6 @@ document.querySelectorAll(".voltar_login").forEach(function(botao) {
 
 // Abrir form de cadastro
 var link_cadastro = document.getElementById("irParaCadastro");
-
 link_cadastro.addEventListener("click", function() {
 
     document.getElementById("form_cadastro").style.display="flex";
