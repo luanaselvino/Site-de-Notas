@@ -109,6 +109,7 @@ form {
     color: #818181;
     border: none;
     background: none;
+    cursor: pointer;
 }
 
 #criarGrupo {
@@ -242,7 +243,7 @@ input{
     font: medium 15px Arial, sans-serif;
 }
 
-#enviar{
+.enviar{
     width: 300px;
     height: 70px;
     min-width: 300px;

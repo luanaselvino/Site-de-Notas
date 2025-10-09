@@ -117,10 +117,33 @@ entrar_workplace.addEventListener("click", async function (event) {
 });
 
 // Criar novo Workplace
-var criar_workplace = document.getElementById("form_workplace");
-criar_workplace.addEventListener("submit", async function (event) {
+var criarGrupo = document.getElementById("criarGrupo");
+criarGrupo.addEventListener("click", async function () {
 
-    event.preventDefault();
+    var nome_novo_grupo = document.getElementById("nome_novo_grupo").value.trim();
+
+    if (!usuarioLogado) {
+        alert("Você precisa estar logado para criar um grupo.");
+        return;
+    }
+
+    if (!nome_novo_grupo) {
+        alert("Digite um nome para o grupo!");
+        return;
+    }
+
+    try {
+        const grupoCriado = await salvarGrupo(nome_novo_grupo, usuarioLogado);
+
+        localStorage.setItem("grupoLogado", JSON.stringify(grupoCriado));
+        alert("Grupo criado com sucesso!");
+        document.getElementById("nome_novo_grupo").value = "";
+        window.location.href = "home.html";
+
+    } catch (error) {
+        console.error("Erro ao criar grupo:", error);
+        alert("Erro ao criar grupo" + error.message);
+    }
 
     /* adicionar novo grupo na planilha e logar nele e direcionar para as notas */
 })
@@ -230,8 +253,31 @@ async function carregarGruposDoUsuario() {
         });
 
     } catch (error) {
-        console.error("Erro ao carregar os grupos do usuário:", error);
+        console.error("Erro ao carregar os grupos do usuário: ", error);
         document.getElementById("ws-salvos").innerHTML = "<p>Erro ao carregar seus workplaces.</p>";
+    }
+}
+
+async function salvarGrupo(nomeGrupo, usuarioCriador) {
+    try {
+        const novoGrupo = {
+            GrupoID: crypto.randomUUID(),
+            Grupo: nomeGrupo,
+            participantes: []
+        };
+        
+        await fetch(SHEETDB_API.GRUPOS, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ data: [novoGrupo] })
+        });
+
+        await salvarParticipante(usuarioCriador, novoGrupo);
+        return novoGrupo;
+
+    } catch (error) {
+        console.error("Erro ao salvar grupo: ", error);
+        throw error;
     }
 }
 
@@ -338,3 +384,17 @@ link_cadastro.addEventListener("click", function() {
     document.getElementById("form_login").style.display="none";
 
 });
+
+// Fechar aba de novo grupo
+var fechar_novo_grupo = document.getElementById("fechar_novo_grupo");
+fechar_novo_grupo.addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("novo_grupo").style.display="none";
+})
+
+// Abrir aba de novo grupo
+var abrir_novo_grupo = document.getElementById("abrir_novo_grupo");
+abrir_novo_grupo.addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("novo_grupo").style.display="flex";
+})
