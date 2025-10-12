@@ -35,14 +35,40 @@ window.onload =  async function() {
 };
 
 // Salvar notas criadas (SHEETDB)
+let notaEmEdicao = null; // Guarda a nota sendo editada
 document.getElementById("salvar").addEventListener("click", async function() {
     document.getElementById("inserir_nota").style.display = "none";
     
-    var titulo = document.getElementById("titulo").value;
-    var conteudo = document.getElementById("conteudo").value;
+    var titulo = document.getElementById("titulo").value.trim();
+    var conteudo = document.getElementById("conteudo").value.trim();
 
-    if (conteudo !== "" && usuarioLogado && grupoLogado) {
-        try {
+    if (!conteudo) return alert("O conteúdo da nota não pode estar vazio.");
+
+    const salvarBtn = document.getElementById("salvar");
+
+    try {
+        // Edição de notas
+        if (notaEmEdicao) {
+            await fetch(`${SHEETDB_API.NOTAS}/NotasID/${notaEmEdicao.NotasID}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    data: { Titulo: titulo, Conteudo: conteudo }
+                })
+            });
+
+            // Atualiza na tela
+            const box = document.querySelector(`[data-id='${notaEmEdicao.NotasID}']`);
+            if (box) {
+                box.querySelector(".titulo").textContent = titulo;
+                box.querySelector(".conteudo").textContent = conteudo;
+            }
+
+            notaEmEdicao = null;
+            salvarBtn.textContent = "Salvar";
+        }
+        // Criar nova nota
+        else {
             const novaNota = {
                 NotasID: Date.now(),
                 UserID: usuarioLogado.UserID,
@@ -52,30 +78,29 @@ document.getElementById("salvar").addEventListener("click", async function() {
                 GrupoID: grupoLogado.GrupoID
             };
 
-            // Usa a API DE NOTAS para criar (POST) uma nova linha
             await fetch(SHEETDB_API.NOTAS, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ data: [novaNota] })
             });
 
-            // Limpa os campos
-            document.getElementById("titulo").value = "";
-            document.getElementById("conteudo").value = "";
-            
             mostrarNota(novaNota);
-
-        } catch (error) {
-            console.error("Erro ao salvar a nota:", error);
-            alert("Não foi possível salvar a nota.");
         }
+
+        document.getElementById("titulo").value = "";
+        document.getElementById("conteudo").value = "";
+        document.getElementById("inserir_nota").style.display = "none";
+
+    } catch (error) {
+        console.error("Erro ao salvar ou atualizar nota:", error);
+        alert("Não foi possível salvar/atualizar a nota.");
     }
 });
 
 function mostrarNota(nota){
     var box = document.createElement('div');
     box.classList.add('box');
-    // Usamos as colunas Titulo e Conteudo que vêm diretamente da planilha de Notas
+    box.setAttribute('data-id', nota.NotasID);
     box.innerHTML = `
         <div class="titulo">${nota.Titulo}</div>
         <div class="conteudo">${nota.Conteudo}</div>
@@ -107,6 +132,16 @@ function mostrarNota(nota){
             console.error("Erro ao excluir a nota:", error);
             alert("Não foi possível excluir a nota. Tente novamente.");
         }
+    });
+
+    var editar_nota = box.querySelector(".editar_nota");
+    editar_nota.addEventListener("click", function() {
+        // Ativa o modo de edição
+        notaEmEdicao = nota;
+        // Mostra o editor com dados da nota
+        document.getElementById("inserir_nota").style.display = "block";
+        document.getElementById("titulo").value = nota.Titulo;
+        document.getElementById("conteudo").value = nota.Conteudo;
     });
 
     document.getElementById("main").appendChild(box);
