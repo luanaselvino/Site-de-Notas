@@ -65,8 +65,8 @@ document.getElementById("salvar").addEventListener("click", async function() {
             }
 
             notaEmEdicao = null;
-            salvarBtn.textContent = "Salvar";
         }
+
         // Criar nova nota
         else {
             const novaNota = {
@@ -146,6 +146,25 @@ function mostrarNota(nota){
 
     document.getElementById("main").appendChild(box);
 }
+
+// Pesquisar notas criadas
+var campoPesquisa = document.getElementById("pesquisa");
+campoPesquisa.addEventListener("input", function () {
+    var termo = this.value.toLowerCase(); // texto digitado
+    var notas = document.querySelectorAll(".box"); // cada nota
+
+    notas.forEach(nota => {
+        var titulo = nota.querySelector(".titulo").textContent.toLowerCase();
+        var conteudo = nota.querySelector(".conteudo").textContent.toLowerCase();
+
+        // Mostra apenas notas que contêm o termo no título ou conteúdo
+        if (titulo.includes(termo) || conteudo.includes(termo)) {
+            nota.style.display = "block";
+        } else {
+            nota.style.display = "none";
+        }
+    });
+});
 
 // NAVEGAÇÃO //
 // Fechar editor de notas
