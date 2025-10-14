@@ -166,6 +166,8 @@ campoPesquisa.addEventListener("input", function () {
     });
 });
 
+// Filtrar usuários
+
 // NAVEGAÇÃO //
 // Fechar editor de notas
 document.getElementById("close_nota").addEventListener("click", function() {

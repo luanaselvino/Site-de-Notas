@@ -13,7 +13,37 @@ body{
     background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
 
 }
+
 /* Início top-nav */
+
+#filtrar_usuarios {
+    display: flex;
+    position: absolute;
+    width: 160px;
+    min-height: 100px;
+    max-width: 230px;
+    right: 390px;
+    top: 60px;
+    z-index: 1;
+    flex-wrap: wrap; /* quebrar para a próxima linha */
+
+    padding: 10px;;
+    color: #dde3ee;
+
+    border-radius: 0  25px  25px 25px;
+    background-color: rgb(86, 102, 83);
+}
+
+#filtrar_usuarios p {
+    display: flex;
+    height: 20px;
+    max-width: max-content;
+    margin: 4px;
+    padding: 1px 10px 1px 10px;
+    border: solid 1px white;
+    border-radius: 25px;
+}
+
 #top-nav {
     height: 60px;
     width: 100vw;
