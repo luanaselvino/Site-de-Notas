@@ -1,5 +1,6 @@
 let usuarioLogado = null;
 let grupoLogado = null;
+let allGroupNotes = [];
 
 // window.onload = function(){}; a função só é executada quando a página termina de carregar
 window.onload =  async function() {
@@ -17,14 +18,17 @@ window.onload =  async function() {
     try {
         // Busca na API DE NOTAS todas as notas onde a coluna 'UserID' bate com o Id do usuário logado
         const response = await fetch(`${SHEETDB_API.NOTAS}/search?GrupoID=${grupoLogado.GrupoID}`);
-        const notasDoUsuario = await response.json(); // A resposta é a lista de notas
+        const notasDoGrupo = await response.json(); // A resposta é a lista de notas
+        allGroupNotes = notasDoGrupo;
         
         // Mostra cada nota encontrada na tela
-        if (notasDoUsuario.length > 0) {
-            notasDoUsuario.forEach(nota => {
+        if (allGroupNotes.length > 0) {
+            allGroupNotes.forEach(nota => {
                 mostrarNota(nota);
             });
         }
+
+        updateFiltroUsuarios();
 
         nome_usuario.textContent = `${usuarioLogado.Nome} (ativo)`;
         tipo_perfil.textContent = usuarioLogado.Perfil;
@@ -64,6 +68,13 @@ document.getElementById("salvar").addEventListener("click", async function() {
                 box.querySelector(".conteudo").textContent = conteudo;
             }
 
+            // Atualiza no array
+            const index = allGroupNotes.findIndex(n => n.NotasID === notaEmEdicao.NotasID);
+            if (index !== -1) {
+                allGroupNotes[index].Titulo = titulo;
+                allGroupNotes[index].Conteudo = conteudo;
+            }
+
             notaEmEdicao = null;
         }
 
@@ -85,6 +96,8 @@ document.getElementById("salvar").addEventListener("click", async function() {
             });
 
             mostrarNota(novaNota);
+            allGroupNotes.push(novaNota);
+            updateFiltroUsuarios();
         }
 
         document.getElementById("titulo").value = "";
@@ -125,8 +138,9 @@ function mostrarNota(nota){
                 method: 'DELETE'
             });
             
-            // Remove a nota da tela.
-            box.remove();
+            box.remove(); // Remove a nota da tela
+            allGroupNotes = allGroupNotes.filter(n => n.NotasID !== nota.NotasID);
+            updateFiltroUsuarios();
 
         } catch (error) {
             console.error("Erro ao excluir a nota:", error);
@@ -166,7 +180,64 @@ campoPesquisa.addEventListener("input", function () {
     });
 });
 
+filtrar = document.getElementById("filtrar");
+filtrar_usuarios = document.getElementById("filtrar_usuarios");
+filtrar.addEventListener("click", function() {
+    if (filtrar_usuarios.style.display === "block") {
+        filtrar_usuarios.style.display = "none";
+    } else {
+        filtrar_usuarios.style.display = "block";
+    }
+})
+
 // Filtrar usuários
+function updateFiltroUsuarios() {
+    const filtroContainer = document.getElementById("filtrar_usuarios");
+    filtroContainer.innerHTML = ''; // Limpa a lista antiga
+
+    // Adiciona um botão "Mostrar Todos"
+    const pTodos = document.createElement("p");
+    pTodos.textContent = "Mostrar Todos";
+    pTodos.style.cursor = "pointer"; // Faz parecer clicável
+    pTodos.addEventListener('click', () => {
+        const notas = document.querySelectorAll(".box");
+        notas.forEach(nota => {
+            nota.style.display = "block";
+        });
+    });
+    filtroContainer.appendChild(pTodos);
+
+    // Pega todos os nomes do array de notas
+    const autores = allGroupNotes.map(nota => nota.Nome);
+    
+    // Filtra para ter apenas nomes únicos
+    const autoresUnicos = [...new Set(autores)];
+
+    // Cria um <p> para cada autor único
+    autoresUnicos.forEach(nome => {
+        const p = document.createElement("p");
+        p.textContent = nome;
+        p.style.cursor = "pointer"; // Faz parecer clicável
+        
+        // Adiciona o evento de clique para filtrar por esse autor
+        p.addEventListener('click', () => filtrarPorAutor(nome));
+        
+        filtroContainer.appendChild(p);
+    });
+}
+
+// Filtra as notas na tela pelo nome do autor
+function filtrarPorAutor(nomeAutor) {
+    const notas = document.querySelectorAll(".box");
+    notas.forEach(nota => {
+        const autorDaNota = nota.querySelector(".autor").textContent;
+        if (autorDaNota === nomeAutor) {
+            nota.style.display = "block";
+        } else {
+            nota.style.display = "none";
+        }
+    });
+}
 
 // NAVEGAÇÃO //
 // Fechar editor de notas
