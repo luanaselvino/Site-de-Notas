@@ -1,3 +1,9 @@
+:root {
+    --cor-primaria: #FFFFFF;
+    --cor-secundaria: #3B3F49;
+    --cor-terciaria: #799674;
+}
+
 *{
     box-sizing: border-box;
     margin: 0;

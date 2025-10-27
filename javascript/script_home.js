@@ -114,6 +114,11 @@ function mostrarNota(nota){
     var box = document.createElement('div');
     box.classList.add('box');
     box.setAttribute('data-id', nota.NotasID);
+
+    const cores = ['#ffaa89', '#b5cc9a', '#ffe49a', '#c8e9ff', '#d2d1ff', '#ffffffff'];
+    const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
+    box.style.backgroundColor = corAleatoria;
+
     box.innerHTML = `
         <div class="titulo">${nota.Titulo}</div>
         <div class="conteudo">${nota.Conteudo}</div>
@@ -147,6 +152,7 @@ function mostrarNota(nota){
             alert("Não foi possível excluir a nota. Tente novamente.");
         }
     });
+
 
     var editar_nota = box.querySelector(".editar_nota");
     editar_nota.addEventListener("click", function() {
@@ -254,10 +260,24 @@ document.getElementById("add_button").addEventListener("click", function() {
     document.getElementById("inserir_nota").style.display = "block";
 });
 
-// Abrir nav
-document.getElementById("open_nav").addEventListener("click", function() {
-    document.getElementById("Nav").style.display = "flex";
-    document.getElementById("open_nav").style.display = 'none';
+// Abrir/Fechar nav
+open_nav = document.getElementById("open_nav");
+Nav = document.getElementById("Nav");
+ferramentas_busca = document.getElementById("ferramentas_busca");
+filtrar_usuarios = document.getElementById("filtrar_usuarios");
+add_button = document.getElementById("add_button");
+open_nav.addEventListener("click", function() {
+    if (Nav.style.display === "flex") {
+        Nav.style.display = "none";
+        ferramentas_busca.style.left = "200px";
+        add_button.style.right =  "20vw";
+        filtrar_usuarios.style.right =  "40px";
+    } else {
+        Nav.style.display = "flex";
+        ferramentas_busca.style.left = "310px";
+        add_button.style.right = "10vw";
+        filtrar_usuarios.style.right =  "80px";
+    }
 });
 
 // Fechar nav

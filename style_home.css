@@ -1,17 +1,17 @@
+:root {
+    --cor-primaria: #FFFFFF;
+    --cor-secundaria: #3B3F49;
+    --cor-terciaria: #799674;
+}
 
-/*:root {
-
-}*/
 
 body{
     margin: 0;
     padding: 0;
     overflow-x: hidden; 
     overflow-y: hidden;
-    /* Gradiente de fundo */
-    background: #ffffff;
-    background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
-
+    background: var(--cor-primaria);
+    background: linear-gradient(181deg, rgba(230, 211, 171, 0.83, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
 }
 
 /* Início top-nav */
@@ -22,16 +22,15 @@ body{
     width: 160px;
     min-height: 100px;
     max-width: 230px;
-    right: 390px;
+    right: 40px;
     top: 60px;
     z-index: 1;
     flex-wrap: wrap; /* quebrar para a próxima linha */
 
     padding: 10px;;
-    color: #dde3ee;
-
-    border-radius: 0  25px  25px 25px;
-    background-color: rgb(86, 102, 83);
+    border-radius: 25px;
+    border: solid 2px rgba(206, 206, 206, 0.281);
+    background: white;
 }
 
 #filtrar_usuarios p {
@@ -40,7 +39,7 @@ body{
     max-width: max-content;
     margin: 4px;
     padding: 1px 10px 1px 10px;
-    border: solid 1px white;
+    border: solid 1px rgb(0, 0, 0);
     border-radius: 25px;
 }
 
@@ -48,7 +47,7 @@ body{
     height: 60px;
     width: 100vw;
     display: flex;
-    background-color: #799674;
+    background: white;
 }
 
 #top-nav h3 {
@@ -57,7 +56,6 @@ body{
     margin-right: 150px;
 
     font: bold 20px Arial, sans-serif;
-    color: #ffffff;
     letter-spacing: 1px;
 }
 
@@ -65,30 +63,29 @@ body{
     position: fixed;
     display: flex;
     margin: auto;
-    right: 540px;
+    left: 200px;
 }
 
 #ferramentas_busca h4 {
     height: 40px;
     margin-right: 10px;
-    color: #394636;
 }
 
 #buscar {
     height: 27px;
     width: 27px;
     margin-top: 17px;
+    margin-left: 5px;
 
     border: none;
     border-radius: 15px 0 0 15px;
-    background-color: #ffffff;
-    color: #39463673;
     cursor: pointer;
+    background: none;
 }
 
 #pesquisa {
     height: 25px;
-    width: 250px;
+    width: 710px;
     margin-top: 17px;
     margin-right: 10px;
 
@@ -106,9 +103,6 @@ body{
     border-radius: 10px;
     background: none;
     cursor: pointer;
-    color: #394636;
-
-    
 }
 
 #open_nav {
@@ -117,8 +111,7 @@ body{
     height: 40px;
 
     /* Ajustar posição */
-    margin-left: auto;
-    margin-right: 20px;
+    margin-left: 20px;
     margin-top: 10px;
     display: flex;
     cursor: pointer;
@@ -127,13 +120,11 @@ body{
 
     border-radius: 10px;
     border: 0;
-    
     background: none;
 }
 
 #open_nav i { /* ícone do button */
     font-size: 25px;
-    color: #ffffff;
 }
 
 /* Fim top-nav */
@@ -158,10 +149,10 @@ body{
     bottom: 1%;
     z-index: 100;
 
-    background-color: #ffffff;
     border-radius: 30px;
     box-shadow: 1px 1px 10px 0px rgb(94, 94, 94);
     transition-duration: 0.6s;
+    background-color:  white;
 }
 
 #close_nota, #titulo, #conteudo, #salvar {
@@ -175,7 +166,6 @@ body{
     
     /* Fonte */
     font: bold 60px Arial, sans-serif;
-    color: rgba(0, 0, 0, 0.295);
 
     /* Ajustar posição */
     margin-top: 10px;
@@ -200,7 +190,6 @@ body{
 
     /* Fonte */
     font: bold 50px Arial, sans-serif;
-    color:rgb(94, 94, 94);
 
     padding: 15px;
     box-sizing: border-box;
@@ -235,7 +224,6 @@ body{
     width: 80px;
 
     /* Fontes */
-    color: rgba(0, 0, 0, 0.568);
     font: bold 15px Arial, sans-serif;
     text-align: right;
 
@@ -257,9 +245,7 @@ body{
 #corpo {
     width: 100vw;
     height: 100vh;
-
     display: flex;
-    background-color: #e9e9e95d;
 }
 
 #main {
@@ -273,7 +259,6 @@ body{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: auto;
     margin-bottom: 16vh;
-    margin-left: 15%;
     padding: 25px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -292,16 +277,11 @@ body{
     /* Ajustar posição */
     position: absolute;
     bottom: 12vh;
-    right: 19vw;
+    right: 20vw;
 
     border-radius: 100px;
     cursor: pointer;
-    border-color: #dde3ee;
-    background-color: rgb(255, 255, 255);
-}
-
-#add_button i{ /* ícone do button */
-    color: #7b828f;
+    background-color:  white;
 }
 
 /* Notas */
@@ -316,11 +296,9 @@ body{
     margin-bottom: 50px;
 
     border-radius: 15px;
-    border: 2px solid rgba(0, 0, 0, 0.068);
 
     font-family: var(--font);
     padding: 18px;
-    background-color: hsl(0, 0%, 100%);
     box-shadow: 0px 0px 5px 0px #bdbdbd65;
 }
 
@@ -331,7 +309,6 @@ body{
 
     /* Fonte */
     font: bold 15px Arial, sans-serif;
-    color: #424642;
     text-align: center;
 
     /* Formatação do texto */
@@ -377,15 +354,12 @@ body{
     padding: 0px 8px;
     border: solid 1px #4246428c;
     border-radius: 10px;
-    color: #4246428c;
     font-size: 14px;
 }
-
 
 .excluir_nota, .editar_nota {
     background: none;
     border: none;
-    color: #4246428c;
     cursor: pointer;
     float:  right;
 }
@@ -396,17 +370,17 @@ body{
 
 #Nav {
    /* Tamanho da div */
-    width: 200px;
-    height: 450px;
+    width: 230px;
 
     /* Fonte */
     font-family: Inter, sans-serif;
     font-size: 15px;
-    color: #ffffffe5;
 
     /* Ajustar posição */
-    margin: 0 0 0 10px;
-    position: absolute;
+    margin: 10 0 0 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    position: flex;
     display: none;
     flex-direction: column; /* organiza embaixo */
     gap: 10px;
@@ -415,10 +389,7 @@ body{
     right: 0;
     top: 0;
     transition: all 0.5s;
-
-    padding: 10px 30px 30px 30px;
-    border-radius: 25px 0px 25px 25px;
-    background-color: #60815a;
+    background: white;
 }
 
 #linha {
@@ -428,7 +399,6 @@ body{
 /* Button */
 #close_nav {
     margin-left: auto; /* empurrar para direita */
-    color: #ffffffe5;
     font-size: 12px;
     background: none;
     border: none;
@@ -440,23 +410,23 @@ body{
     list-style: none;
     letter-spacing: 1px;
     font-size: 18px;
-    color: #00000091;
 }
 
 #list li {
+    height: 50px;
+    width: 100%;
     margin-top: 25px;
-}
-
-#bottom_navbar {
-    margin-top: 165px;
+    margin-right: 0px;
+    line-height: 50px;
+    padding-left: 20px;
+    border-radius: 25px 0 0 25px;
 }
 
 #sair{
     display: block;
-    
     padding: 0; /* remove espaçamento interno */
     margin: 0; /* remove espaçamento externo */
-    margin-bottom: 30px;
+    line-height: 50px;
 
     background: none;
     border: none;
@@ -465,7 +435,6 @@ body{
     /* Fonte */
     font-family: Inter, sans-serif;
     font-size: 18px;
-    color: #00000091;
 }
 
 /* Fim Navbar */
