@@ -1,7 +1,6 @@
 :root {
-    --cor-primaria: #FFFFFF;
-    --cor-secundaria: #3B3F49;
-    --cor-terciaria: #799674;
+    --color: #799674;
+    --font: Arial, sans-serif;
 }
 
 
@@ -10,8 +9,8 @@ body{
     padding: 0;
     overflow-x: hidden; 
     overflow-y: hidden;
-    background: var(--cor-primaria);
-    background: linear-gradient(181deg, rgba(230, 211, 171, 0.83, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
+    background: #ffffff;
+    background: linear-gradient(181deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 68%, rgba(230, 211, 171, 0.83) 99%);
 }
 
 /* Início top-nav */
@@ -22,7 +21,7 @@ body{
     width: 160px;
     min-height: 100px;
     max-width: 230px;
-    right: 40px;
+    right: 70px;
     top: 60px;
     z-index: 1;
     flex-wrap: wrap; /* quebrar para a próxima linha */
@@ -63,12 +62,13 @@ body{
     position: fixed;
     display: flex;
     margin: auto;
-    left: 200px;
+    left: 220px;
 }
 
 #ferramentas_busca h4 {
     height: 40px;
     margin-right: 10px;
+    color: var(--color);;
 }
 
 #buscar {
@@ -81,11 +81,12 @@ body{
     border-radius: 15px 0 0 15px;
     cursor: pointer;
     background: none;
+    color: var(--color);;
 }
 
 #pesquisa {
     height: 25px;
-    width: 710px;
+    width: 785px;
     margin-top: 17px;
     margin-right: 10px;
 
@@ -99,7 +100,8 @@ body{
     margin-top: 17px;
 
     padding: auto;
-    border: 2px solid #394636;
+    color: var(--color);;
+    border: 2px solid var(--color);;
     border-radius: 10px;
     background: none;
     cursor: pointer;
@@ -125,6 +127,7 @@ body{
 
 #open_nav i { /* ícone do button */
     font-size: 25px;
+    color: var(--color);;
 }
 
 /* Fim top-nav */
@@ -267,6 +270,7 @@ body{
     border: 1px solid rgba(100, 100, 100, 0.068);
     border-radius: 25px;
     box-shadow: 0px 0px 10px 0px #bdbdbd65;
+    background-color: #ffffff75;
 }
 
 #add_button {
@@ -278,10 +282,16 @@ body{
     position: absolute;
     bottom: 12vh;
     right: 20vw;
-
+    border-color: var(--color);;
     border-radius: 100px;
     cursor: pointer;
     background-color:  white;
+}
+
+.fa-plus {
+  background: linear-gradient(45deg, #ff1aba, #5630fd, #24f8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Notas */
@@ -389,7 +399,7 @@ body{
     right: 0;
     top: 0;
     transition: all 0.5s;
-    background: white;
+    background: none;
 }
 
 #linha {
@@ -419,7 +429,16 @@ body{
     margin-right: 0px;
     line-height: 50px;
     padding-left: 20px;
-    border-radius: 25px 0 0 25px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+#list li:hover {
+    background-color: #79967486;
+}
+
+#nome_usuario {
+    background-color: #79967486;
 }
 
 #sair{

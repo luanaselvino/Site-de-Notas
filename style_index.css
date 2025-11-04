@@ -78,7 +78,7 @@ span{
 
 form {
     width: 450px;
-    height: 530px;
+    height: 470px;
 
     display: flex;
     flex-direction: column; /* coloca os elementos em coluna */

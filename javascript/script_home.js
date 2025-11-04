@@ -30,7 +30,7 @@ window.onload =  async function() {
 
         updateFiltroUsuarios();
 
-        nome_usuario.textContent = `${usuarioLogado.Nome} (ativo)`;
+        nome_usuario.textContent = `${usuarioLogado.Nome} - Painel`;
         tipo_perfil.textContent = usuarioLogado.Perfil;
 
     } catch (error) {
@@ -269,14 +269,14 @@ add_button = document.getElementById("add_button");
 open_nav.addEventListener("click", function() {
     if (Nav.style.display === "flex") {
         Nav.style.display = "none";
-        ferramentas_busca.style.left = "200px";
+        ferramentas_busca.style.left = "220px";
         add_button.style.right =  "20vw";
-        filtrar_usuarios.style.right =  "40px";
+        filtrar_usuarios.style.right =  "70px";
     } else {
         Nav.style.display = "flex";
-        ferramentas_busca.style.left = "310px";
+        ferramentas_busca.style.left = "330px";
         add_button.style.right = "10vw";
-        filtrar_usuarios.style.right =  "80px";
+        filtrar_usuarios.style.right =  "110px";
     }
 });
 
