@@ -26,7 +26,7 @@ body{
     z-index: 1;
     flex-wrap: wrap; /* quebrar para a próxima linha */
 
-    padding: 10px;;
+    padding: 10px;
     border-radius: 25px;
     border: solid 2px rgba(206, 206, 206, 0.281);
     background: white;
@@ -68,7 +68,7 @@ body{
 #ferramentas_busca h4 {
     height: 40px;
     margin-right: 10px;
-    color: var(--color);;
+    color: var(--color);
 }
 
 #buscar {
@@ -81,7 +81,7 @@ body{
     border-radius: 15px 0 0 15px;
     cursor: pointer;
     background: none;
-    color: var(--color);;
+    color: var(--color);
 }
 
 #pesquisa {
@@ -99,9 +99,9 @@ body{
     width: 27px;
     margin-top: 17px;
 
-    padding: auto;
-    color: var(--color);;
-    border: 2px solid var(--color);;
+    padding: 5px;
+    color: var(--color);
+    border: 2px solid var(--color);
     border-radius: 10px;
     background: none;
     cursor: pointer;
@@ -127,7 +127,7 @@ body{
 
 #open_nav i { /* ícone do button */
     font-size: 25px;
-    color: var(--color);;
+    color: var(--color);
 }
 
 /* Fim top-nav */
@@ -145,9 +145,7 @@ body{
 
     /* Ajustar posição */
     margin: auto;
-    margin-inline: 300px;
-    left: 1%;
-    right: 330px;
+    left: 50%; transform: translateX(-50%);
     top: 1%;
     bottom: 1%;
     z-index: 100;
@@ -214,7 +212,7 @@ body{
 
     /* Bordas */
     border-radius: 5px;
-    border: 2px solid rgba(0, 0, 0, 0.295);;
+    border: 2px solid rgba(0, 0, 0, 0.295);
     
     /* Ajustar posição */
     padding: 15px;
@@ -282,7 +280,7 @@ body{
     position: absolute;
     bottom: 12vh;
     right: 20vw;
-    border-color: var(--color);;
+    border-color: var(--color);
     border-radius: 100px;
     cursor: pointer;
     background-color:  white;
@@ -387,10 +385,10 @@ body{
     font-size: 15px;
 
     /* Ajustar posição */
-    margin: 10 0 0 10px;
+    margin: 10px 0 0 10px;
     padding: 15px;
     box-sizing: border-box;
-    position: flex;
+    display: flex;
     display: none;
     flex-direction: column; /* organiza embaixo */
     gap: 10px;
@@ -457,6 +455,54 @@ body{
 }
 
 /* Fim Navbar */
+
+/* Início Trocar Senha */
+
+#tela_trocar_senha {
+    display: none;
+    flex-direction: column;
+    gap: 0px;
+    position: absolute;
+    height: 100%;
+    width: 78%;
+    right: 0;
+    z-index: 10;
+
+    font-family: Arial, sans-serif;
+    padding: 90px 0 0 200px;
+    box-sizing: border-box;
+    background: #fffdf9;
+}
+
+#tela_trocar_senha h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: var(--color);
+}
+
+#tela_trocar_senha h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#tela_trocar_senha input {
+    height: 25px;
+    width: 300px;
+    margin-bottom: 6px;
+}
+
+#mudar_senha {
+    height: 35px;
+    width: 150px;
+    margin-top: 50px;
+    background: var(--color);
+    color: white;
+    border-style: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+/* Fim Trocar Senha */
 
 /* Início Footer 
 

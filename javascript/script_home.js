@@ -266,12 +266,14 @@ Nav = document.getElementById("Nav");
 ferramentas_busca = document.getElementById("ferramentas_busca");
 filtrar_usuarios = document.getElementById("filtrar_usuarios");
 add_button = document.getElementById("add_button");
+tela_trocar_senha = document.getElementById("tela_trocar_senha");
 open_nav.addEventListener("click", function() {
     if (Nav.style.display === "flex") {
         Nav.style.display = "none";
         ferramentas_busca.style.left = "220px";
         add_button.style.right =  "20vw";
         filtrar_usuarios.style.right =  "70px";
+        tela_trocar_senha.style.display = "none";
     } else {
         Nav.style.display = "flex";
         ferramentas_busca.style.left = "330px";
@@ -280,10 +282,11 @@ open_nav.addEventListener("click", function() {
     }
 });
 
-// Fechar nav
-document.getElementById("close_nav").addEventListener("click", function() {
-    document.getElementById("Nav").style.display = "none"
-    document.getElementById("open_nav").style.display = 'flex'
+// Abrir Mudar Senha
+var trocar_senha = document.getElementById("trocar_senha");
+var tela_trocar_senha = document.getElementById("tela_trocar_senha");
+trocar_senha.addEventListener("click", function() {
+    tela_trocar_senha.style.display = "flex";
 });
 
 // Deslogar usuário

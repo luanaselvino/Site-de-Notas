@@ -17,6 +17,16 @@
 </head>
 
 <body>
+    <form id="tela_trocar_senha">
+        <h2>Mudar Senha</h2>
+        <h3>Senha antiga:</h3>
+        <input type="password" placeholder="Insira sua senha" id="senha_antiga">
+        <h3>Nova senha:</h3>
+        <input type="password" placeholder="Crie uma nova senha" id="nova_senha">
+        <h3>Confirmar a nova senha:</h3>
+        <input type="password" placeholder="Confirme a nova senha" id="confirmar_nova_senha">
+        <button type="submit" id="mudar_senha">Mudar Senha</button>
+    </form>
 
     <div id="filtrar_usuarios"></div>
 
@@ -25,7 +35,7 @@
 
         <!-- Abrir nav -->
         <button id="open_nav">
-            <i class="fa-solid fa-bars fa-2x"></i>
+            <i class="fa-solid fa-bars"></i>
         </button>
 
         <div id="ferramentas_busca">
@@ -61,7 +71,7 @@
                 <li>Pessoas</li>
             
 
-                <li>Trocar Senha</li>
+                <li id="trocar_senha">Trocar Senha</li>
                 <li><button id="sair">Sair</button></li>
 
             </div>
